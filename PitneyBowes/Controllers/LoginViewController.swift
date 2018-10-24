@@ -24,7 +24,7 @@ class LoginViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.navigationBar.isHidden = true
+        //self.navigationController?.navigationBar.isHidden = true
 
     }
 
@@ -93,6 +93,14 @@ class LoginViewController: UIViewController {
                 
                 //Fetch the user detail from loggedInUser object
                 print(loggedInUser)
+                
+                guard let loggedInUserId = loggedInUser.id else {
+                    print("User ID not available")
+                    return
+                }
+                
+                //Save logged-in user id in singleton
+                ApplicationManager.shared.loggedInUserId = loggedInUserId
                 
                 //Save user detail in core data for later use
                 DatabaseManager.saveLoggedInUserInCoreData(userDetail: loggedInUser)

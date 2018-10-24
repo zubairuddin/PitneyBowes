@@ -9,7 +9,7 @@
 import UIKit
 
 class InboundViewController : UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -34,19 +34,19 @@ class InboundViewController : UIViewController {
         
         navigationItem.titleView = imageView
     }
-
-   
+    
+    
     @IBAction func Button_Driver(_ sender: UIButton) {
-        let next = self.storyboard?.instantiateViewController(withIdentifier: "DriverSeallnfoViewController")as! DriverSeallnfoViewController
-        self.navigationController?.pushViewController(next, animated: true)
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "DriverSeallnfoViewController")as! DriverSeallnfoViewController
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     
     @IBAction func button_generalInfoPressed(_ sender: UIButton) {
-        let next = self.storyboard?.instantiateViewController(withIdentifier: "GeneralInfoViewController")as! GeneralInfoViewController
-         self.navigationController?.pushViewController(next, animated: true)
-        //let next = self.storyboard?.instantiateViewController(withIdentifier: "thirdViewController")as! ThirdViewController
-       // self.navigationController?.pushViewController(next, animated: true)
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "GeneralInfoViewController")as! GeneralInfoViewController
+        
+        ApplicationManager.shared.shipmentType = "INBOUND"
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 
