@@ -7,6 +7,12 @@
 //
 
 import UIKit
+import SVProgressHUD
+
+enum ValidateData {
+    case invalid(String)
+    case valid
+}
 
 class LoginViewController: UIViewController {
 
@@ -24,16 +30,91 @@ class LoginViewController: UIViewController {
 
     @IBAction func loginAction(_ sender: RoundedBorderButton) {
         
-        //TODO: ADD Validation
+        //TODO: ADD Validation and Loading
+        let isInputValid = validateInput()
         
-        APIManager.executeRequest(withQueryString: "email=\(txtEmail.text!)&password=\(txtPassword.text!)")
+        switch isInputValid {
+        case .valid:
+            callLoginAPI()
+        case .invalid(let message):
+            presentAlert(withTitle: message, message: "")
+            
+        }
+        
         
     }
     @IBAction func forgotPasswordAction(_ sender: UIButton) {
     }
     
     //MARK: Custom Methods
-    func goToMainView() {
+    
+    //Input validation
+    func validateInput() ->ValidateData {
+        if (txtEmail.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)! {
+            return .invalid("Please enter email address.")
+        }
+        else if (txtPassword.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)! {
+            return .invalid("Please enter password.")
+        }
+        
+        return.valid
     }
+    
+    //Login API Call
+    func callLoginAPI() {
+        
+        //Show HUD
+        SVProgressHUD.show(withStatus: "Logging in...")
+        SVProgressHUD.setDefaultMaskType(.black)
+        
+        APIManager.executeRequest(appendingPath: "users/signin", withQueryString: "email=\(txtEmail.text!)&password=\(txtPassword.text!)") { (data, error) in
+            
+            //Hide Hud
+            
+            if error != nil {
+                self.hideHud()
+                print("Error: \(error!.localizedDescription)")
+                return
+            }
+            
+            guard let responseData = data else {
+                self.hideHud()
+                return
+            }
+            
+            //let json = try! JSONSerialization.jsonObject(with: responseData, options: .allowFragments)
+            //print(json)
+            
+            do {
+                let users = try JSONDecoder().decode(UserData.self, from: responseData)
+                guard let userData = users.data, let loggedInUser = userData[0].User else {
+                    return
+                }
+                
+                //Fetch the user detail from loggedInUser object
+                print(loggedInUser)
+                
+                //Save user detail in core data for later use
+                DatabaseManager.saveLoggedInUserInCoreData(userDetail: loggedInUser)
+                
+                self.hideHud()
+                
+                DispatchQueue.main.async {
+                    self.goToMainView()
+                }
+                
+            }
+            catch let error {
+                print("Unable to decode: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    //Navigate to main screen
+    func goToMainView() {
+        let vc = storyboard?.instantiateViewController(withIdentifier: "MainViewController") as! MainViewController
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
     
 }

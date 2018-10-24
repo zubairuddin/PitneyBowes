@@ -7,12 +7,15 @@
 //
 
 import Foundation
-
+import UIKit
+import SVProgressHUD
 extension String {
     
-    func urlFromQueryString()-> URL? {
+    func urlFromQueryString(appendingPath: String)-> URL? {
         
-        guard var components = URLComponents(string: KBASEURL) else {
+        let strUrlPath = KBASEURL + appendingPath
+        
+        guard var components = URLComponents(string: strUrlPath) else {
             print("Invalid base url.")
             return nil
         }
@@ -26,5 +29,21 @@ extension String {
         print("URL for the request is \(url)")
         
         return url
+    }
+}
+
+extension UIViewController {
+    func presentAlert(withTitle title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func hideHud() {
+        DispatchQueue.main.async {
+            SVProgressHUD.dismiss()
+        }
+        
     }
 }

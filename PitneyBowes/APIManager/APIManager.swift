@@ -10,27 +10,39 @@ import Foundation
 
 class APIManager {
     
-    class func executeRequest(withQueryString queryString: String) {
+    class func executeRequest(appendingPath: String, withQueryString queryString: String, completionHandler:@escaping (Data?,Error?)->()) {
         
-        guard let requestUrl = queryString.urlFromQueryString() else {
+        //Get the url by appending query string
+        guard let requestUrl = queryString.urlFromQueryString(appendingPath: appendingPath) else {
             print("Unable to create url")
             return
         }
         
-        let task = URLSession.shared.dataTask(with: requestUrl) { (responseData, urlResponse, error) in
+        //Create the request
+        var request = URLRequest(url: requestUrl)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        //Initiate the dataTask
+        let task = URLSession.shared.dataTask(with: request) { (responseData, urlResponse, error) in
             
             if error != nil {
-                print("Error:)")
-            }
-            
-            guard let data = responseData else {
+                print("Error: \(error!.localizedDescription)")
+                completionHandler(nil,error)
                 return
             }
             
-            let json = try! JSONSerialization.jsonObject(with: data, options: .allowFragments)
-            print(json)
+            guard let data = responseData else {
+                completionHandler(nil,error)
+                return
+            }
+            
+            completionHandler(data,nil)
         }
-        
+            
         task.resume()
     }
+    
 }
+
+
