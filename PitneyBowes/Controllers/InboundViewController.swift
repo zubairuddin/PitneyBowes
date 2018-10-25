@@ -43,9 +43,7 @@ class InboundViewController : UIViewController {
     
     
     @IBAction func button_generalInfoPressed(_ sender: UIButton) {
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "GeneralInfoViewController")as! GeneralInfoViewController
-        
-        ApplicationManager.shared.shipmentType = "INBOUND"
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "GeneralInfoViewController")as! GeneralInfoViewController        
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }

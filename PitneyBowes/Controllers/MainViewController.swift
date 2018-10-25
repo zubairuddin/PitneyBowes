@@ -34,14 +34,20 @@ class MainViewController: UIViewController {
         navigationItem.titleView = imageView
     }
     @IBAction func butt_Inbound(_ sender: UIButton) {
-        let next = self.storyboard?.instantiateViewController(withIdentifier: "InboundViewController")as! InboundViewController
-        self.navigationController?.pushViewController(next, animated: true)
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "InboundViewController")as! InboundViewController
+
+        ApplicationManager.shared.shipmentType = "INBOUND"
+
+        self.navigationController?.pushViewController(vc, animated: true)
         
     }
     
     @IBAction func butt_Out(_ sender: UIButton) {
-        let next = self.storyboard?.instantiateViewController(withIdentifier: "OutBoundViewController")as! OutBoundViewController
-        self.navigationController?.pushViewController(next, animated: true)
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "OutBoundViewController")as! OutBoundViewController
+        
+        ApplicationManager.shared.shipmentType = "OUTBOUND"
+        
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     

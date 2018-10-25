@@ -28,8 +28,6 @@ class OutBoundViewController: UIViewController {
     }
     @IBAction func generalInfo_pressed(){
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "GeneralInfoViewController")as! GeneralInfoViewController
-        
-        ApplicationManager.shared.shipmentType = "OUTBOUND"
         self.navigationController?.pushViewController(vc, animated: true)
 
     }

@@ -67,7 +67,7 @@ class LoginViewController: UIViewController {
         SVProgressHUD.show(withStatus: "Logging in...")
         SVProgressHUD.setDefaultMaskType(.black)
         
-        APIManager.executeRequest(appendingPath: "users/signin", withQueryString: "email=\(txtEmail.text!)&password=\(txtPassword.text!)") { (data, error) in
+        APIManager.executeRequest(appendingPath: "users/signin", withQueryString: "email=\(txtEmail.text!)&password=\(txtPassword.text!)", httpMethod: "POST") { (data, error) in
             
             //Hide Hud
             
@@ -123,6 +123,5 @@ class LoginViewController: UIViewController {
         let vc = storyboard?.instantiateViewController(withIdentifier: "MainViewController") as! MainViewController
         navigationController?.pushViewController(vc, animated: true)
     }
-    
     
 }

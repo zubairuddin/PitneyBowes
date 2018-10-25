@@ -10,7 +10,7 @@ import Foundation
 
 class APIManager {
     
-    class func executeRequest(appendingPath: String, withQueryString queryString: String, completionHandler:@escaping (Data?,Error?)->()) {
+    class func executeRequest(appendingPath: String, withQueryString queryString: String, httpMethod: String, completionHandler:@escaping (Data?,Error?)->()) {
         
         //Get the url by appending query string
         guard let requestUrl = queryString.urlFromQueryString(appendingPath: appendingPath) else {
@@ -20,7 +20,7 @@ class APIManager {
         
         //Create the request
         var request = URLRequest(url: requestUrl)
-        request.httpMethod = "POST"
+        request.httpMethod = httpMethod
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
         //Initiate the dataTask
@@ -42,7 +42,6 @@ class APIManager {
             
         task.resume()
     }
-    
 }
 
 
