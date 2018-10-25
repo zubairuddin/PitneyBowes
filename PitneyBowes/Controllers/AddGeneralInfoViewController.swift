@@ -19,7 +19,7 @@ class AddGeneralInfoViewController: UIViewController {
     @IBOutlet weak var txtPro: UITextField!
     @IBOutlet weak var txtCarrier: UITextField!
     @IBOutlet weak var txtLocation: UITextField!
-    @IBOutlet weak var txtOrigin: UITextField!
+    @IBOutlet weak var txtOriginOrDestination: UITextField!
     @IBOutlet weak var txtSealNumber: UITextField!
     
     @IBOutlet weak var lblSealNumber: UILabel!
@@ -133,7 +133,7 @@ class AddGeneralInfoViewController: UIViewController {
         else if (txtLocation.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)! {
             return .invalid("Please enter location.")
         }
-        else if (txtOrigin.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)! {
+        else if (txtOriginOrDestination.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)! {
             return .invalid("Please enter origin.")
         }
 
@@ -150,7 +150,7 @@ class AddGeneralInfoViewController: UIViewController {
             return
         }
         
-        let queryString = "user_id=\(loggedInUserId)&type=\(type)&bol=\(txtBol.text!)&carrier=\(txtCarrier.text!)&ngs_location=\(txtLocation.text!)&origin=\(txtOrigin.text!)&latitude=\(latitude)&longitude=\(longitude)"
+        let queryString = "user_id=\(loggedInUserId)&type=\(type)&bol=\(txtBol.text!)&carrier=\(txtCarrier.text!)&ngs_location=\(txtLocation.text!)&origin=\(txtOriginOrDestination.text!)&latitude=\(latitude)&longitude=\(longitude)"
         
         APIManager.executeRequest(appendingPath: "shipments/add", withQueryString: queryString, httpMethod: "POST") { (data, error) in
             if error != nil {
@@ -238,7 +238,7 @@ extension AddGeneralInfoViewController: UIPickerViewDelegate {
             txtLocation.text = selectedLocation?.name
         }
         else {
-            txtOrigin.text = selectedLocation?.name
+            txtOriginOrDestination.text = selectedLocation?.name
         }
     }
 }

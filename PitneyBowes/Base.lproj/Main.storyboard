@@ -712,7 +712,7 @@
                         <outlet property="txtBol" destination="bT6-r1-oQ2" id="jKS-4Y-yFd"/>
                         <outlet property="txtCarrier" destination="mQz-0e-tZt" id="R1n-2g-646"/>
                         <outlet property="txtLocation" destination="IQU-3L-csI" id="GJm-Hx-X0o"/>
-                        <outlet property="txtOrigin" destination="xW1-ZC-brl" id="Hec-Fu-bN1"/>
+                        <outlet property="txtOriginOrDestination" destination="xW1-ZC-brl" id="Hec-Fu-bN1"/>
                         <outlet property="txtPro" destination="mfV-T8-f2Z" id="f7f-iC-2lR"/>
                         <outlet property="txtSealNumber" destination="gNW-n2-f3z" id="U4f-b0-Izk"/>
                         <outlet property="viewPicker" destination="D2z-hS-2Y6" id="zvX-6g-G7E"/>
