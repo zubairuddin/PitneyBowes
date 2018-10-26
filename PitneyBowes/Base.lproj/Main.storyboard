@@ -317,6 +317,12 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mZf-PH-hWZ">
+                                <rect key="frame" x="394" y="138" width="506" height="30"/>
+                                <connections>
+                                    <action selector="selectEmployee:" destination="uoT-Om-To2" eventType="touchUpInside" id="JI3-ij-bob"/>
+                                </connections>
+                            </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="iy3-3S-PPi">
                                 <rect key="frame" x="20" y="218" width="984" height="1128"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
@@ -332,6 +338,10 @@
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mtq-Co-nK2">
                                         <rect key="frame" x="0.0" y="76" width="1024" height="224"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="uoT-Om-To2" id="kdF-wj-dUn"/>
+                                            <outlet property="delegate" destination="uoT-Om-To2" id="Gg0-wT-BRX"/>
+                                        </connections>
                                     </pickerView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fqu-xN-IE7" customClass="RoundedBorderButton" customModule="PitneyBowes" customModuleProvider="target">
                                         <rect key="frame" x="10" y="10" width="150" height="56"/>
@@ -342,6 +352,9 @@
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <state key="normal" title="Cancel"/>
+                                        <connections>
+                                            <action selector="cancelEmployeeSelection:" destination="uoT-Om-To2" eventType="touchUpInside" id="ZDm-7m-KoL"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XfO-yC-Ouc" customClass="RoundedBorderButton" customModule="PitneyBowes" customModuleProvider="target">
                                         <rect key="frame" x="864" y="10" width="150" height="56"/>
@@ -352,6 +365,9 @@
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <state key="normal" title="Done"/>
+                                        <connections>
+                                            <action selector="doneEmployeeSelection:" destination="uoT-Om-To2" eventType="touchUpInside" id="EnE-Rf-YOo"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -371,7 +387,9 @@
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="mZf-PH-hWZ" firstAttribute="bottom" secondItem="e1L-j9-8RE" secondAttribute="bottom" id="8yB-Rr-BXM"/>
                             <constraint firstItem="8E9-pR-2WZ" firstAttribute="trailing" secondItem="e1L-j9-8RE" secondAttribute="trailing" constant="124" id="BQo-co-5dt"/>
+                            <constraint firstItem="mZf-PH-hWZ" firstAttribute="trailing" secondItem="e1L-j9-8RE" secondAttribute="trailing" id="F7F-dq-Nm4"/>
                             <constraint firstItem="8E9-pR-2WZ" firstAttribute="trailing" secondItem="iy3-3S-PPi" secondAttribute="trailing" constant="20" id="Mwl-qr-R7Y"/>
                             <constraint firstItem="e1L-j9-8RE" firstAttribute="top" secondItem="8E9-pR-2WZ" secondAttribute="top" constant="68" id="NZd-4C-2P1"/>
                             <constraint firstItem="H6Y-gd-5sL" firstAttribute="leading" secondItem="8E9-pR-2WZ" secondAttribute="leading" constant="93" id="TZT-IR-FxR"/>
@@ -380,6 +398,8 @@
                             <constraint firstItem="8E9-pR-2WZ" firstAttribute="bottom" secondItem="iy3-3S-PPi" secondAttribute="bottom" constant="20" id="fE6-MU-YmL"/>
                             <constraint firstItem="8E9-pR-2WZ" firstAttribute="bottom" secondItem="XZy-zJ-jbR" secondAttribute="bottom" constant="-300" id="gI0-Ob-lON"/>
                             <constraint firstItem="XZy-zJ-jbR" firstAttribute="leading" secondItem="8E9-pR-2WZ" secondAttribute="leading" id="l6F-RO-qFZ"/>
+                            <constraint firstItem="mZf-PH-hWZ" firstAttribute="top" secondItem="e1L-j9-8RE" secondAttribute="top" id="l6H-IL-dHi"/>
+                            <constraint firstItem="mZf-PH-hWZ" firstAttribute="leading" secondItem="e1L-j9-8RE" secondAttribute="leading" id="lzQ-lu-tfW"/>
                             <constraint firstItem="iy3-3S-PPi" firstAttribute="top" secondItem="e1L-j9-8RE" secondAttribute="bottom" constant="50" id="o7B-Am-O5q"/>
                             <constraint firstItem="iy3-3S-PPi" firstAttribute="leading" secondItem="8E9-pR-2WZ" secondAttribute="leading" constant="20" id="tQr-Y5-Zmg"/>
                             <constraint firstItem="H6Y-gd-5sL" firstAttribute="top" secondItem="8E9-pR-2WZ" secondAttribute="top" constant="68" id="vYI-L9-MnY"/>
@@ -398,7 +418,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qOh-8o-pZb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="733" y="-4401"/>
+            <point key="canvasLocation" x="715" y="-4401"/>
         </scene>
         <!--Add General Info View Controller-->
         <scene sceneID="zFz-zM-f8A">

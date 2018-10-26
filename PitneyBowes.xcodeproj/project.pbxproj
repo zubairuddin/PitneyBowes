@@ -32,6 +32,7 @@
 		E0190068217DEC2B00E4B372 /* RoundedBorderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0190067217DEC2B00E4B372 /* RoundedBorderButton.swift */; };
 		E06075C4217CF19B006E5937 /* pb-new-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = E06075C3217CF19B006E5937 /* pb-new-logo.png */; };
 		E06075C6217CF58F006E5937 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E06075C5217CF58F006E5937 /* LoginViewController.swift */; };
+		F9116B1721831BE700C4173B /* Employee.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9116B1621831BE700C4173B /* Employee.swift */; };
 		F912FEEB218054BD00FBA36D /* PitneyBowes.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F912FEE9218054BD00FBA36D /* PitneyBowes.xcdatamodeld */; };
 		F912FEEF2180555300FBA36D /* LoggedInUser+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F912FEED2180555300FBA36D /* LoggedInUser+CoreDataClass.swift */; };
 		F912FEF02180555300FBA36D /* LoggedInUser+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F912FEEE2180555300FBA36D /* LoggedInUser+CoreDataProperties.swift */; };
@@ -70,6 +71,7 @@
 		E06075C3217CF19B006E5937 /* pb-new-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pb-new-logo.png"; sourceTree = "<group>"; };
 		E06075C5217CF58F006E5937 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		F29CB659545EC94C0B8215CA /* Pods-PitneyBowes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PitneyBowes.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PitneyBowes/Pods-PitneyBowes.debug.xcconfig"; sourceTree = "<group>"; };
+		F9116B1621831BE700C4173B /* Employee.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Employee.swift; sourceTree = "<group>"; };
 		F912FEEA218054BD00FBA36D /* PitneyBowes.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PitneyBowes.xcdatamodel; sourceTree = "<group>"; };
 		F912FEED2180555300FBA36D /* LoggedInUser+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LoggedInUser+CoreDataClass.swift"; sourceTree = "<group>"; };
 		F912FEEE2180555300FBA36D /* LoggedInUser+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LoggedInUser+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -198,6 +200,7 @@
 				3D261E0C217F8F1F00FB4D13 /* User.swift */,
 				F912FF002180A83C00FBA36D /* Shipment.swift */,
 				3D60FAA12181611A005DCE78 /* Location.swift */,
+				F9116B1621831BE700C4173B /* Employee.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -383,6 +386,7 @@
 				E0190068217DEC2B00E4B372 /* RoundedBorderButton.swift in Sources */,
 				3D60FAA22181611A005DCE78 /* Location.swift in Sources */,
 				3D261E0A217F8D1D00FB4D13 /* Constants.swift in Sources */,
+				F9116B1721831BE700C4173B /* Employee.swift in Sources */,
 				F912FEFF2180A20D00FBA36D /* ApplicationManager.swift in Sources */,
 				0478C47F2170D3F700DF8834 /* AddGeneralInfoViewController.swift in Sources */,
 				3DDABD0D2180D6E300755157 /* GeneralInfoCell.swift in Sources */,

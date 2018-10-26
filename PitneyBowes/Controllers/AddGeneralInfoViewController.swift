@@ -100,7 +100,10 @@ class AddGeneralInfoViewController: UIViewController {
         
         switch isInputValid {
         case .valid:
-            callSaveGeneralInfoAPI()
+            
+            //Change: API won't be called now as per dicussion with shilpa
+            //callSaveGeneralInfoAPI()
+            print("Save info")
         case .invalid(let message):
             presentAlert(withTitle: message, message: "")
         }
@@ -119,6 +122,7 @@ class AddGeneralInfoViewController: UIViewController {
             self.view.layoutIfNeeded()
         }
     }
+    
     //Input validation
     func validateInput() ->ValidateData {
         if (txtBol.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)! {

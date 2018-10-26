@@ -17,6 +17,8 @@ class GeneralInfoViewController: UIViewController{
     @IBOutlet weak var viewPickerBottomConstraint: NSLayoutConstraint!
     
     var arrShipments = [Shipment]()
+    var arrEmployees = [Employee]()
+    var selectedEmployee: Employee?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,22 +29,46 @@ class GeneralInfoViewController: UIViewController{
         
         tblShipments.register(UINib(nibName: "GeneralInfoCell", bundle: Bundle.main), forCellReuseIdentifier: "GeneralInfoCell")
         
+        //
+        fetchEmployees()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         fetchGeneralInfoEntries()
     }
    
-     @objc func add(_ sender: Any){
-        let next = self.storyboard?.instantiateViewController(withIdentifier: "AddGeneralInfoViewController")as! AddGeneralInfoViewController
+    @IBAction func selectEmployee(_ sender: UIButton) {
+        showHideLocationPicker(isShow: true)
+    }
+    @IBAction func cancelEmployeeSelection(_ sender: RoundedBorderButton) {
+        showHideLocationPicker(isShow: false)
+    }
+    @IBAction func doneEmployeeSelection(_ sender: RoundedBorderButton) {
+        showHideLocationPicker(isShow: false)
+    }
+    @objc func add(_ sender: Any){
+        let next = self.storyboard?.instantiateViewController(withIdentifier: "AddGeneralInfoViewController") as! AddGeneralInfoViewController
         self.navigationController?.pushViewController(next, animated:true)
     }
     
+    func showHideLocationPicker(isShow: Bool) {
+        if isShow {
+            viewPickerBottomConstraint.constant = 0
+        }
+        else {
+            viewPickerBottomConstraint.constant = -(viewPicker.frame.height)
+        }
+        
+        UIView.animate(withDuration: 0.5) {
+            self.view.layoutIfNeeded()
+        }
+    }
+
     func fetchGeneralInfoEntries() {
         guard let userId = ApplicationManager.shared.loggedInUserId, let type = ApplicationManager.shared.shipmentType else {
             return
         }
-        
         
         SVProgressHUD.show(withStatus: "Loading...")
         SVProgressHUD.setDefaultMaskType(.black)
@@ -73,7 +99,7 @@ class GeneralInfoViewController: UIViewController{
                 }
                 
                 self.arrShipments = shipmentsArray
-                
+
                 DispatchQueue.main.async {
                     self.hideHud()
                     self.tblShipments.reloadData()
@@ -85,7 +111,38 @@ class GeneralInfoViewController: UIViewController{
             }
             
         }
-
+    }
+    
+    func fetchEmployees() {
+        //http://smartpro-technologies.com/api/employees
+        APIManager.executeRequest(appendingPath: "employees", withQueryString: "", httpMethod: "GET") { (data, error) in
+            if error != nil {
+                print("Error while fetching employees: \(error!.localizedDescription)")
+                return
+            }
+            
+            guard let responseData = data else {
+                return
+            }
+            
+            do {
+                let employees = try JSONDecoder().decode(Employees.self, from: responseData)
+                print(employees)
+                guard let arrData = employees.data else {
+                    return
+                }
+                
+                self.arrEmployees = arrData
+                
+                DispatchQueue.main.async {
+                    self.pickerView.reloadAllComponents()
+                }
+                
+            }
+            catch let error {
+                print(error.localizedDescription)
+            }
+        }
     }
 }
 
@@ -102,6 +159,26 @@ extension GeneralInfoViewController: UITableViewDataSource {
         return cell
     }
 }
+
+extension GeneralInfoViewController: UIPickerViewDelegate {
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return arrEmployees[row].Employee?.name
+    }
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        selectedEmployee = arrEmployees[row]
+        txtCargo.text = selectedEmployee?.Employee?.name
+    }
+}
+
+extension GeneralInfoViewController: UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return arrEmployees.count
+    }
+}
+
   
 
 

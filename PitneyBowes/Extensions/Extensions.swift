@@ -15,6 +15,11 @@ extension String {
         
         let strUrlPath = KBASEURL + appendingPath
         
+        //If no query string is passed, simply return the concatenated url
+        if self == "" {
+            return URL(string: strUrlPath)
+        }
+        
         guard var components = URLComponents(string: strUrlPath) else {
             print("Invalid base url.")
             return nil
