@@ -102,12 +102,10 @@ class LoginViewController: UIViewController {
                 //Save logged-in user id in singleton
                 ApplicationManager.shared.loggedInUserId = loggedInUserId
                 
-                //Save user detail in core data for later use
-                DatabaseManager.saveLoggedInUserInCoreData(userDetail: loggedInUser)
-                
                 self.hideHud()
                 
                 DispatchQueue.main.async {
+                   // DatabaseManager.saveLoggedInUserInCoreData(userDetail: loggedInUser)
                     self.goToMainView()
                 }
                 

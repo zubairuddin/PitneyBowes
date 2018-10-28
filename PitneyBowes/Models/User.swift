@@ -2,7 +2,7 @@
 //  User.swift
 //  PitneyBowes
 //
-//  Created by Zubair on 23/10/18.
+//  Created by Rizwan on 23/10/18.
 //  Copyright © 2018 mac. All rights reserved.
 //
 

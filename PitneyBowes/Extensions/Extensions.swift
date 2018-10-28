@@ -2,7 +2,7 @@
 //  Extensions.swift
 //  PitneyBowes
 //
-//  Created by Zubair on 24/10/18.
+//  Created by Rizwan on 24/10/18.
 //  Copyright © 2018 mac. All rights reserved.
 //
 

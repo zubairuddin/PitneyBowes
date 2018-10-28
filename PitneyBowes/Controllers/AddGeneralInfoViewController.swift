@@ -7,6 +7,37 @@
 //
 
 import UIKit
+import AVFoundation
+
+protocol SaveInboundGeneralInfoProtocol {
+    func didSaveInboundShipmentGeneralInfo(generalInfo: InboundShipmentGeneralInfo)
+}
+protocol SaveOutboundGeneralInfoProtocol {
+    func didSaveOutboundShipmentGeneralInfo(generalInfo: OutboundShipmentGeneralInfo)
+}
+
+struct InboundShipmentGeneralInfo {
+    var bol: String
+    var proNumber: String
+    var carrier: String
+    var ngsLocation: String
+    var latitude: Double
+    var longitude: Double
+    var origin: String
+    var employeeName: String
+}
+
+struct OutboundShipmentGeneralInfo {
+    var bol: String
+    var proNumber: String
+    var carrier: String
+    var ngsLocation: String
+    var latitude: Double
+    var longitude: Double
+    var destination: String
+    var sealNumber: String
+    var employeeName: String
+}
 
 class AddGeneralInfoViewController: UIViewController {
     
@@ -15,22 +46,31 @@ class AddGeneralInfoViewController: UIViewController {
         case originOrDestination
     }
     
+    @IBOutlet weak var btnScan: RoundedBorderButton!
     @IBOutlet weak var txtBol: UITextField!
     @IBOutlet weak var txtPro: UITextField!
     @IBOutlet weak var txtCarrier: UITextField!
     @IBOutlet weak var txtLocation: UITextField!
     @IBOutlet weak var txtOriginOrDestination: UITextField!
     @IBOutlet weak var txtSealNumber: UITextField!
-    
+
     @IBOutlet weak var lblSealNumber: UILabel!
     @IBOutlet weak var lblOriginOrDestination: UILabel!
 
     @IBOutlet weak var viewPickerBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var viewSealInfoHeight: NSLayoutConstraint!
+    
     @IBOutlet weak var viewPicker: UIView!
     @IBOutlet weak var pickerView: UIPickerView!
+    @IBOutlet weak var btnNASealNumber: UIButton!
+    
+    var inboundGeneralInfoDelegate: SaveInboundGeneralInfoProtocol?
+    var outboundGeneralInfoDelegate: SaveOutboundGeneralInfoProtocol?
     
     //Select ngs location by default
     var selectedTextField: SelectedTextFieldType = .ngsLocation
+    
+    var strSelectedEmployeeName = ""
     
     var latitude = 0.0
     var longitude = 0.0
@@ -38,6 +78,15 @@ class AddGeneralInfoViewController: UIViewController {
     var arrLocations = [Location]()
     var selectedLocation: Location?
     
+    
+    //Scanning
+    var isScanning = false
+    
+    var session: AVCaptureSession?
+    var videoPreviewLayer: AVCaptureVideoPreviewLayer?
+    var redLineView: UIView?
+
+    //
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "General Information"
@@ -46,6 +95,8 @@ class AddGeneralInfoViewController: UIViewController {
         let cancleButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.cancel,
                                            target: self,
                                            action: #selector(cancel(_:)))
+        
+        
         self.navigationItem.leftBarButtonItem = cancleButton
         
         
@@ -57,29 +108,58 @@ class AddGeneralInfoViewController: UIViewController {
             return
         }
         
-        if type == "INBOUND" {
+        if type == .INBOUND {
             print("inbound shipment")
             lblSealNumber.isHidden = true
             txtSealNumber.isHidden = true
+            btnNASealNumber.isHidden = true
             lblOriginOrDestination.text = "Origin"
+            viewSealInfoHeight.constant = 0
+            btnNASealNumber.isHidden = true
         }
-        else {
+        else if type == .OUTBOUND{
             print("outbound shipment")
             lblSealNumber.isHidden = false
             txtSealNumber.isHidden = false
+            btnNASealNumber.isHidden = false
             lblOriginOrDestination.text = "Destination"
+            viewSealInfoHeight.constant = 30
+            btnNASealNumber.isHidden = false
         }
         
+        //load the scan button initially.
+        btnScan.isHidden = true
         callGetLocationsAPI()
     }
     
+    @IBAction func scanTapped(_ sender: RoundedBorderButton) {
+        //view.endEditing(true)
+        startScan()
+    }
     @IBAction func cancelSelection(_ sender: RoundedBorderButton) {
         showHideLocationPicker(isShow: false)
     }
     @IBAction func doneSelection(_ sender: RoundedBorderButton) {
         showHideLocationPicker(isShow: false)
+        
+        if selectedTextField == .ngsLocation {
+            txtLocation.text = selectedLocation?.name
+        }
+        else {
+            txtOriginOrDestination.text = selectedLocation?.name
+        }
+
+    }
+    @IBAction func bolNotApplicableAction(_ sender: UIButton) {
+        txtBol.text = "N/A"
+    }
+    @IBAction func proNotApplicableAction(_ sender: UIButton) {
+        txtPro.text = "N/A"
     }
     
+    @IBAction func sealNotApplicableAction(_ sender: UIButton) {
+        txtSealNumber.text = "N/A"
+    }
     @objc func cancel(_ sender: Any){
         self.navigationController?.popViewController(animated: true)
     }
@@ -97,22 +177,92 @@ class AddGeneralInfoViewController: UIViewController {
         print("Save General Info Tapped")
         
         let isInputValid = validateInput()
-        
+
         switch isInputValid {
         case .valid:
-            
             //Change: API won't be called now as per dicussion with shilpa
             //callSaveGeneralInfoAPI()
             print("Save info")
+            guard let type = ApplicationManager.shared.shipmentType else {
+                return
+            }
+            
+            if type == .INBOUND {
+                saveGeneralInfoForInboundShipment()
+            }
+            else if type == .OUTBOUND {
+                saveGeneralInfoForOutboundShipment()
+            }
+            
+            //TODO: Navigate to the inbound/outbound view controller
         case .invalid(let message):
             presentAlert(withTitle: message, message: "")
         }
-        
     }
     
+    func saveGeneralInfoForInboundShipment() {
+        
+        let bolNumber = txtBol.text!
+        let proNumber = txtPro.text!
+        let carrier = txtCarrier.text!
+        let ngsLocation = txtLocation.text!
+        let lat = latitude
+        let long = longitude
+        let origin = txtOriginOrDestination.text!
+        
+        let generalInfo = InboundShipmentGeneralInfo(bol: bolNumber, proNumber: proNumber, carrier: carrier, ngsLocation: ngsLocation, latitude: lat, longitude: long, origin: origin, employeeName: strSelectedEmployeeName)
+        
+        //Pass the general info to the InboundViewController via it's delegate
+        inboundGeneralInfoDelegate?.didSaveInboundShipmentGeneralInfo(generalInfo: generalInfo)
+        popToInboundVC()
+    }
+    
+    func saveGeneralInfoForOutboundShipment() {
+        
+        let bolNumber = txtBol.text!
+        let proNumber = txtPro.text!
+        let carrier = txtCarrier.text!
+        let ngsLocation = txtLocation.text!
+        let lat = latitude
+        let long = longitude
+        let destination = txtOriginOrDestination.text!
+        let sealNumber = txtSealNumber.text!
+        
+        let generalInfo = OutboundShipmentGeneralInfo(bol: bolNumber, proNumber: proNumber, carrier: carrier, ngsLocation: ngsLocation, latitude: lat, longitude: long, destination: destination, sealNumber: sealNumber, employeeName: strSelectedEmployeeName)
+        
+        //Pass the general info to the OutboundViewController via it's delegate
+        outboundGeneralInfoDelegate?.didSaveOutboundShipmentGeneralInfo(generalInfo: generalInfo)
+        popToOutboundVC()
+    }
+    
+    func popToInboundVC() {
+        for vc in navigationController!.viewControllers {
+            if vc is InboundViewController {
+                navigationController?.popToViewController(vc, animated: true)
+            }
+        }
+    }
+    func popToOutboundVC() {
+        for vc in navigationController!.viewControllers {
+            if vc is OutBoundViewController {
+                navigationController?.popToViewController(vc, animated: true)
+            }
+        }
+    }
+
     func showHideLocationPicker(isShow: Bool) {
         if isShow {
             viewPickerBottomConstraint.constant = 0
+            
+            //Default row selection
+            let row = pickerView.selectedRow(inComponent: 0)
+            pickerView(pickerView, didSelectRow: row, inComponent:0)
+            
+            //Hide the keyboard is it's shown
+            if txtCarrier.isFirstResponder {
+                txtCarrier.resignFirstResponder()
+            }
+
         }
         else {
             viewPickerBottomConstraint.constant = -(viewPicker.frame.height)
@@ -145,53 +295,9 @@ class AddGeneralInfoViewController: UIViewController {
         return.valid
     }
     
-    func callSaveGeneralInfoAPI() {
-        guard let loggedInUserId = ApplicationManager.shared.loggedInUserId else {
-            return
-        }
-        
-        guard let type  = ApplicationManager.shared.shipmentType else {
-            return
-        }
-        
-        let queryString = "user_id=\(loggedInUserId)&type=\(type)&bol=\(txtBol.text!)&carrier=\(txtCarrier.text!)&ngs_location=\(txtLocation.text!)&origin=\(txtOriginOrDestination.text!)&latitude=\(latitude)&longitude=\(longitude)"
-        
-        APIManager.executeRequest(appendingPath: "shipments/add", withQueryString: queryString, httpMethod: "POST") { (data, error) in
-            if error != nil {
-                print("Error: \(error!.localizedDescription)")
-                return
-            }
-            
-            guard let responseData = data else {
-                return
-            }
-            
-            if let json = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as! [String:Any] {
-                
-                print(json)
-                if let intError = json["error"] as? Int {
-                    print(intError)
-                    
-                    if intError == 0 {
-                        //Shipment saved successfully
-                        DispatchQueue.main.async {
-                            self.navigationController?.popViewController(animated: true)
-                        }
-                    }
-                    else {
-                        //Handle error
-                        let message = json["message"] as! String
-                        DispatchQueue.main.async {
-                            self.presentAlert(withTitle: message, message: "")
-                        }
-                   }
-                }
-            }
-        }
-    }
-    
     func callGetLocationsAPI() {
-        let type = ApplicationManager.shared.shipmentType == "INBOUND" ? "origin" : "destination"
+        
+        let type = ApplicationManager.shared.shipmentType == .INBOUND ? "origin" : "destination"
         
         guard let userId = ApplicationManager.shared.loggedInUserId else {
             return
@@ -230,19 +336,131 @@ class AddGeneralInfoViewController: UIViewController {
     }
 }
 
+//Scanning code
+extension AddGeneralInfoViewController {
+    func startScan() {
+        
+        //Create a capture session
+        session = AVCaptureSession()
+        
+        //Get the device from which input will be taken
+        guard let captureDevice = AVCaptureDevice.default(for: .video) else {
+            return
+        }
+        
+        
+        // Get an instance of the AVCaptureDeviceInput class using the previous device object.
+        let deviceInput: AVCaptureDeviceInput?
+        
+        do {
+            deviceInput = try AVCaptureDeviceInput(device: captureDevice)
+            
+            let output = AVCaptureMetadataOutput()
+            
+            output.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
+            
+            session?.addInput(deviceInput!)
+            session?.addOutput(output)
+            
+            output.metadataObjectTypes = [.ean13]
+            
+            
+            //Add the preview layer
+            guard let captureSession = session else {
+                return
+            }
+            
+            //Video recording layer
+            videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+            videoPreviewLayer?.videoGravity = .resizeAspectFill
+            
+            //videoPreviewLayer?.frame = view.layer.bounds
+            
+            let layerWidth: CGFloat = 450.0
+            let layerHeight: CGFloat = 250.0
+            
+            videoPreviewLayer?.frame = CGRect(x: (view.frame.width / 2) - (layerWidth / 2), y: btnScan.frame.origin.y + btnScan.frame.height + 10, width: layerWidth, height: layerHeight)
+            
+            videoPreviewLayer?.isHidden = false
+            view.layer.addSublayer(videoPreviewLayer!)
+            
+            //Red line view
+            redLineView = UIView()
+            redLineView?.isHidden = false
+            redLineView?.layer.borderColor = UIColor.red.cgColor
+            redLineView?.layer.borderWidth = 2
+            redLineView?.frame = CGRect(x: videoPreviewLayer!.frame.origin.x + 20, y: (videoPreviewLayer?.frame.size.height)! / 2 + videoPreviewLayer!.frame.origin.y, width: videoPreviewLayer!.frame.width - 40, height: 1)
+            view.addSubview(redLineView!)
+            
+            //view.bringSubviewToFront(redLineView!)
+            
+            //Start video
+            session?.startRunning()
+            
+            //Restrict scanning to a certain rect
+            let visibleRect = videoPreviewLayer?.metadataOutputRectConverted(fromLayerRect: (redLineView?.frame)!)
+            
+            print("Area of interest: \(visibleRect!)")
+            
+            //output.rectOfInterest = visibleRect!
+        }
+            
+        catch {
+            presentAlert(withTitle: "Scanning not supported.", message: "")
+            
+        }
+    }
+    func stopScan() {
+        session?.stopRunning()
+        session = nil
+        videoPreviewLayer?.isHidden = true
+        redLineView?.isHidden = true
+        //isScanning = false
+    }
+}
 
+extension AddGeneralInfoViewController: AVCaptureMetadataOutputObjectsDelegate {
+    func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
+        
+        if metadataObjects.count > 0 {
+            guard let readableCode = metadataObjects.first as? AVMetadataMachineReadableCodeObject else {
+                return
+            }
+            
+            //Check if detected code is a barcode and convert it to string
+            if readableCode.type == .ean13 {
+                guard let stringCode = readableCode.stringValue else {
+                    return
+                }
+                
+                //Stop scanning
+                stopScan()
+                isScanning = false
+                
+                print("Barcode detected: \(stringCode)")
+                
+                //Show the scanned code in the selected text field
+                if txtBol.isFirstResponder {
+                    txtBol.text = stringCode
+                }
+                else if txtPro.isFirstResponder {
+                    txtPro.text = stringCode
+                }
+                
+                //presentAlert(withTitle: "Barcode Scanned.", message: stringCode)
+                
+                return
+            }
+        }
+    }
+}
 extension AddGeneralInfoViewController: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return arrLocations[row].name
     }
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        selectedLocation = arrLocations[row]
-        
-        if selectedTextField == .ngsLocation {
-            txtLocation.text = selectedLocation?.name
-        }
-        else {
-            txtOriginOrDestination.text = selectedLocation?.name
+        if arrLocations.count > 0 {
+           selectedLocation = arrLocations[row]
         }
     }
 }
@@ -253,5 +471,33 @@ extension AddGeneralInfoViewController: UIPickerViewDataSource {
     }
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return arrLocations.count
+    }
+}
+
+extension AddGeneralInfoViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == txtBol {
+            txtPro.becomeFirstResponder()
+        }
+        else if textField == txtPro {
+            txtCarrier.becomeFirstResponder()
+        }
+        else {
+            textField.resignFirstResponder()
+        }
+        
+        return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.resignFirstResponder()
+    }
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField == txtBol || textField == txtPro {
+            btnScan.isHidden = false
+        }
+        else {
+            btnScan.isHidden = true
+        }
     }
 }

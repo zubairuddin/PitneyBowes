@@ -36,7 +36,7 @@ class MainViewController: UIViewController {
     @IBAction func butt_Inbound(_ sender: UIButton) {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "InboundViewController")as! InboundViewController
 
-        ApplicationManager.shared.shipmentType = "INBOUND"
+        ApplicationManager.shared.shipmentType = .INBOUND
 
         self.navigationController?.pushViewController(vc, animated: true)
         
@@ -45,7 +45,7 @@ class MainViewController: UIViewController {
     @IBAction func butt_Out(_ sender: UIButton) {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "OutBoundViewController")as! OutBoundViewController
         
-        ApplicationManager.shared.shipmentType = "OUTBOUND"
+        ApplicationManager.shared.shipmentType = .OUTBOUND
         
         self.navigationController?.pushViewController(vc, animated: true)
     }

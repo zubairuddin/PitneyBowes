@@ -16,6 +16,9 @@ class GeneralInfoViewController: UIViewController{
     @IBOutlet weak var pickerView: UIPickerView!
     @IBOutlet weak var viewPickerBottomConstraint: NSLayoutConstraint!
     
+    var inboundDataReceiverVc: InboundViewController?
+    var outboundDataReceiverVc: OutBoundViewController?
+    
     var arrShipments = [Shipment]()
     var arrEmployees = [Employee]()
     var selectedEmployee: Employee?
@@ -29,13 +32,11 @@ class GeneralInfoViewController: UIViewController{
         
         tblShipments.register(UINib(nibName: "GeneralInfoCell", bundle: Bundle.main), forCellReuseIdentifier: "GeneralInfoCell")
         
-        //
         fetchEmployees()
-        
+        fetchGeneralInfoEntries()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        fetchGeneralInfoEntries()
     }
    
     @IBAction func selectEmployee(_ sender: UIButton) {
@@ -46,15 +47,34 @@ class GeneralInfoViewController: UIViewController{
     }
     @IBAction func doneEmployeeSelection(_ sender: RoundedBorderButton) {
         showHideLocationPicker(isShow: false)
+        txtCargo.text = selectedEmployee?.Employee?.name
     }
     @objc func add(_ sender: Any){
-        let next = self.storyboard?.instantiateViewController(withIdentifier: "AddGeneralInfoViewController") as! AddGeneralInfoViewController
-        self.navigationController?.pushViewController(next, animated:true)
+        
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "AddGeneralInfoViewController") as! AddGeneralInfoViewController
+
+        if ApplicationManager.shared.shipmentType == .INBOUND {
+            vc.inboundGeneralInfoDelegate = inboundDataReceiverVc!
+        }
+        
+        else {
+            vc.outboundGeneralInfoDelegate = outboundDataReceiverVc!
+        }
+        
+        if let employeeName = selectedEmployee?.Employee?.name {
+            vc.strSelectedEmployeeName = employeeName
+        }
+        
+        self.navigationController?.pushViewController(vc, animated:true)
     }
     
     func showHideLocationPicker(isShow: Bool) {
         if isShow {
             viewPickerBottomConstraint.constant = 0
+            
+            let row = pickerView.selectedRow(inComponent: 0)
+            pickerView(pickerView, didSelectRow: row, inComponent:0)
+
         }
         else {
             viewPickerBottomConstraint.constant = -(viewPicker.frame.height)
@@ -107,6 +127,7 @@ class GeneralInfoViewController: UIViewController{
                 
             }
             catch let error {
+                self.hideHud()
                 print("Unable to decode: \(error.localizedDescription)")
             }
             
@@ -114,7 +135,6 @@ class GeneralInfoViewController: UIViewController{
     }
     
     func fetchEmployees() {
-        //http://smartpro-technologies.com/api/employees
         APIManager.executeRequest(appendingPath: "employees", withQueryString: "", httpMethod: "GET") { (data, error) in
             if error != nil {
                 print("Error while fetching employees: \(error!.localizedDescription)")
@@ -165,8 +185,10 @@ extension GeneralInfoViewController: UIPickerViewDelegate {
         return arrEmployees[row].Employee?.name
     }
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        selectedEmployee = arrEmployees[row]
-        txtCargo.text = selectedEmployee?.Employee?.name
+        
+        if arrEmployees.count > 0 {
+            selectedEmployee = arrEmployees[row]
+        }
     }
 }
 
@@ -179,6 +201,6 @@ extension GeneralInfoViewController: UIPickerViewDataSource {
     }
 }
 
-  
+
 
 
