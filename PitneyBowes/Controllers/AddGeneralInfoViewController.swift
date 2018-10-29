@@ -46,6 +46,7 @@ class AddGeneralInfoViewController: UIViewController {
         case originOrDestination
     }
     
+    @IBOutlet weak var viewScanner: UIView!
     @IBOutlet weak var btnScan: RoundedBorderButton!
     @IBOutlet weak var txtBol: UITextField!
     @IBOutlet weak var txtPro: UITextField!
@@ -77,10 +78,6 @@ class AddGeneralInfoViewController: UIViewController {
     
     var arrLocations = [Location]()
     var selectedLocation: Location?
-    
-    
-    //Scanning
-    var isScanning = false
     
     var session: AVCaptureSession?
     var videoPreviewLayer: AVCaptureVideoPreviewLayer?
@@ -130,6 +127,7 @@ class AddGeneralInfoViewController: UIViewController {
         //load the scan button initially.
         btnScan.isHidden = true
         callGetLocationsAPI()
+        
     }
     
     @IBAction func scanTapped(_ sender: RoundedBorderButton) {
@@ -364,7 +362,6 @@ extension AddGeneralInfoViewController {
             
             output.metadataObjectTypes = [.ean13]
             
-            
             //Add the preview layer
             guard let captureSession = session else {
                 return
@@ -375,22 +372,18 @@ extension AddGeneralInfoViewController {
             videoPreviewLayer?.videoGravity = .resizeAspectFill
             
             //videoPreviewLayer?.frame = view.layer.bounds
-            
-            let layerWidth: CGFloat = 450.0
-            let layerHeight: CGFloat = 250.0
-            
-            videoPreviewLayer?.frame = CGRect(x: (view.frame.width / 2) - (layerWidth / 2), y: btnScan.frame.origin.y + btnScan.frame.height + 10, width: layerWidth, height: layerHeight)
+            videoPreviewLayer?.frame = viewScanner.layer.bounds
             
             videoPreviewLayer?.isHidden = false
-            view.layer.addSublayer(videoPreviewLayer!)
+            viewScanner.layer.addSublayer(videoPreviewLayer!)
             
             //Red line view
             redLineView = UIView()
             redLineView?.isHidden = false
             redLineView?.layer.borderColor = UIColor.red.cgColor
-            redLineView?.layer.borderWidth = 2
-            redLineView?.frame = CGRect(x: videoPreviewLayer!.frame.origin.x + 20, y: (videoPreviewLayer?.frame.size.height)! / 2 + videoPreviewLayer!.frame.origin.y, width: videoPreviewLayer!.frame.width - 40, height: 1)
-            view.addSubview(redLineView!)
+            redLineView?.layer.borderWidth = 10
+            redLineView?.frame = CGRect(x: videoPreviewLayer!.frame.origin.x + 20, y: videoPreviewLayer!.frame.size.height / 2 + videoPreviewLayer!.frame.origin.y, width: videoPreviewLayer!.frame.width - 40, height: 10)
+            viewScanner.addSubview(redLineView!)
             
             //view.bringSubviewToFront(redLineView!)
             
@@ -398,11 +391,10 @@ extension AddGeneralInfoViewController {
             session?.startRunning()
             
             //Restrict scanning to a certain rect
-            let visibleRect = videoPreviewLayer?.metadataOutputRectConverted(fromLayerRect: (redLineView?.frame)!)
+            let visibleRect = videoPreviewLayer?.metadataOutputRectConverted(fromLayerRect: redLineView!.frame)
             
-            print("Area of interest: \(visibleRect!)")
-            
-            //output.rectOfInterest = visibleRect!
+            //if this line is written before starting the session, it won't work
+            output.rectOfInterest = visibleRect!
         }
             
         catch {
@@ -415,7 +407,6 @@ extension AddGeneralInfoViewController {
         session = nil
         videoPreviewLayer?.isHidden = true
         redLineView?.isHidden = true
-        //isScanning = false
     }
 }
 
@@ -435,7 +426,6 @@ extension AddGeneralInfoViewController: AVCaptureMetadataOutputObjectsDelegate {
                 
                 //Stop scanning
                 stopScan()
-                isScanning = false
                 
                 print("Barcode detected: \(stringCode)")
                 

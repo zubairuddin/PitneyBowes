@@ -697,6 +697,13 @@
                                     <constraint firstItem="Wab-QU-49I" firstAttribute="leading" secondItem="Nzn-aw-u4X" secondAttribute="leading" id="uEJ-Kz-olf"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1wS-mJ-yb1">
+                                <rect key="frame" x="164" y="438" width="440" height="200"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="440" id="FZc-kw-cTn"/>
+                                    <constraint firstAttribute="height" constant="200" id="mfi-2Y-jxx"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -708,6 +715,7 @@
                             <constraint firstItem="oHX-tX-bc5" firstAttribute="top" secondItem="xW1-ZC-brl" secondAttribute="top" id="AnS-3C-daT"/>
                             <constraint firstItem="oHX-tX-bc5" firstAttribute="bottom" secondItem="xW1-ZC-brl" secondAttribute="bottom" id="CKQ-CS-3Nu"/>
                             <constraint firstItem="vLi-57-RNM" firstAttribute="bottom" secondItem="D2z-hS-2Y6" secondAttribute="bottom" constant="-300" id="FP9-0A-nTQ"/>
+                            <constraint firstItem="1wS-mJ-yb1" firstAttribute="centerX" secondItem="1GY-eY-c4h" secondAttribute="centerX" id="HZU-FP-KLh"/>
                             <constraint firstItem="aKW-rb-Fek" firstAttribute="leading" secondItem="bT6-r1-oQ2" secondAttribute="trailing" constant="29" id="KQ5-1k-wOX"/>
                             <constraint firstItem="vLi-57-RNM" firstAttribute="trailing" secondItem="D2z-hS-2Y6" secondAttribute="trailing" id="Kbp-Nw-nsz"/>
                             <constraint firstItem="oHX-tX-bc5" firstAttribute="leading" secondItem="xW1-ZC-brl" secondAttribute="leading" id="KrX-Z2-qhZ"/>
@@ -745,6 +753,7 @@
                             <constraint firstItem="oHX-tX-bc5" firstAttribute="trailing" secondItem="xW1-ZC-brl" secondAttribute="trailing" id="svo-3E-r9H"/>
                             <constraint firstItem="mfV-T8-f2Z" firstAttribute="centerY" secondItem="2Hn-q1-uJy" secondAttribute="centerY" id="tBR-qO-M0O"/>
                             <constraint firstItem="D2z-hS-2Y6" firstAttribute="leading" secondItem="1GY-eY-c4h" secondAttribute="leading" id="tj3-TR-Olx"/>
+                            <constraint firstItem="1wS-mJ-yb1" firstAttribute="top" secondItem="bYA-XZ-Ne7" secondAttribute="bottom" constant="20" id="vds-bU-0eL"/>
                             <constraint firstItem="mQz-0e-tZt" firstAttribute="leading" secondItem="mfV-T8-f2Z" secondAttribute="leading" id="xRe-9U-RlG"/>
                             <constraint firstItem="IQU-3L-csI" firstAttribute="centerY" secondItem="XGQ-si-KIQ" secondAttribute="centerY" id="yqk-2T-cob"/>
                             <constraint firstItem="bYA-XZ-Ne7" firstAttribute="centerX" secondItem="1GY-eY-c4h" secondAttribute="centerX" id="zNl-Cc-bVc"/>
@@ -765,6 +774,7 @@
                         <outlet property="txtSealNumber" destination="gNW-n2-f3z" id="U4f-b0-Izk"/>
                         <outlet property="viewPicker" destination="D2z-hS-2Y6" id="zvX-6g-G7E"/>
                         <outlet property="viewPickerBottomConstraint" destination="FP9-0A-nTQ" id="EGV-B9-NWi"/>
+                        <outlet property="viewScanner" destination="1wS-mJ-yb1" id="VxW-fA-bPh"/>
                         <outlet property="viewSealInfoHeight" destination="qge-FW-uCB" id="eDZ-Kq-xwd"/>
                     </connections>
                 </viewController>
