@@ -18,8 +18,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="iosdemo@grr.la" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lw6-wv-L97">
-                                <rect key="frame" x="145" y="305" width="340" height="34"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lw6-wv-L97">
+                                <rect key="frame" x="145" y="305" width="480" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="6Gd-DH-QT9"/>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="34" id="bIE-7T-cy7"/>
@@ -28,8 +28,8 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="123456" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Nm0-h0-oqj">
-                                <rect key="frame" x="144" y="347" width="340" height="34"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Nm0-h0-oqj">
+                                <rect key="frame" x="144" y="347" width="480" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="9eb-xe-bBZ"/>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="34" id="zcC-Qt-Ngq"/>
@@ -39,7 +39,7 @@
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x4W-D8-rQk" customClass="RoundedBorderButton" customModule="PitneyBowes" customModuleProvider="target">
-                                <rect key="frame" x="144" y="485" width="341" height="40"/>
+                                <rect key="frame" x="144" y="485" width="481" height="40"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="DR4-ZU-qhv"/>
@@ -70,7 +70,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MTO-97-AYd">
-                                <rect key="frame" x="369" y="637" width="139" height="67"/>
+                                <rect key="frame" x="369" y="637" width="279" height="67"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="67" id="H7S-da-yx4"/>
                                 </constraints>
@@ -83,7 +83,7 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pb-new-logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="RQY-BF-f7q">
-                                <rect key="frame" x="118" y="70" width="392" height="103"/>
+                                <rect key="frame" x="188" y="70" width="392" height="103"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="392" id="cYa-Ks-mJs"/>
                                     <constraint firstAttribute="height" constant="103" id="qtl-8F-Wjb"/>
