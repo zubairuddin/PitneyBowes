@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import YPDrawSignatureView
 
 struct OutboundShipmentQuestionaireInfo {
     let discussShipment: Bool
@@ -22,7 +23,8 @@ protocol SaveOutboundQuestionaireProtocol {
 
 class SecurityQuesionViewController: UIViewController {
 
-    @IBOutlet weak var imgSignature: UIImageView!
+    @IBOutlet weak var btnClearSignature: RoundedBorderButton!
+    @IBOutlet weak var viewDrawSignature: YPDrawSignatureView!
     @IBOutlet weak var lblSignature: UILabel!
     
     var outboundQuestionaireDelegate: SaveOutboundQuestionaireProtocol?
@@ -40,7 +42,10 @@ class SecurityQuesionViewController: UIViewController {
         
         let saveButton = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(saveQuestionaireInfo))
         navigationItem.rightBarButtonItem = saveButton
-
+        
+        viewDrawSignature.layer.borderColor = btnClearSignature.currentTitleColor.cgColor
+        viewDrawSignature.layer.borderWidth = 2
+        viewDrawSignature.layer.masksToBounds = true
     }
 
     @IBAction func answerSelected(_ sender: UISwitch) {
@@ -61,34 +66,21 @@ class SecurityQuesionViewController: UIViewController {
             break
         }
     }
-    @IBAction func takeSignatureAction(_ sender: RoundedBorderButton) {
-        let alert = UIAlertController(title: "Select Image", message: nil, preferredStyle: .actionSheet)
-        let cameraAction = UIAlertAction(title: "Camera", style: .default) { (action) in
-            self.openCamera()
-        }
-        let galleryAction = UIAlertAction(title: "Photo Library", style: .default) { (action) in
-            self.openPhotoLibrary()
-        }
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
-        }
-        
-        alert.addAction(cameraAction)
-        alert.addAction(galleryAction)
-        alert.addAction(cancelAction)
-        
-        //iPad specific lines
-        alert.popoverPresentationController?.sourceView = lblSignature
-        alert.popoverPresentationController?.sourceRect = lblSignature.bounds
-        alert.popoverPresentationController?.permittedArrowDirections = [.up]
-        
-        present(alert, animated: true, completion: nil)
-
+    @IBAction func clearSignature(_ sender: RoundedBorderButton) {
+        viewDrawSignature.clear()
     }
     
     @objc func saveQuestionaireInfo() {
+
+        guard let signatureImage = viewDrawSignature.getSignature() else {
+            presentAlert(withTitle: "Please provide your signature.", message: "")
+            return
+        }
+        
+        signature = ["signature": signatureImage]
         
         guard let sign = signature else {
-            presentAlert(withTitle: "Please provide signature.", message: "")
+            presentAlert(withTitle: "Unable to get image from signature.", message: "")
             return
         }
         
@@ -98,51 +90,6 @@ class SecurityQuesionViewController: UIViewController {
         
         navigationController?.popViewController(animated: true)
     }
-    private func openCamera() {
-        //Instantiate UIImagePickerController
-        let picker = UIImagePickerController()
-        picker.delegate = self
-        
-        if UIImagePickerController.isSourceTypeAvailable(.camera) {
-            //Show UIImagePicker with Camera
-            picker.sourceType = .camera
-            present(picker, animated: true, completion: nil)
-        }
-        else {
-            //Show Alert
-            let alert  = UIAlertController(title: "Warning", message: "Camera not available", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
-        }
-    }
     
-    private func openPhotoLibrary() {
-        //Instantiate UIImagePickerController
-        let picker = UIImagePickerController()
-        picker.delegate = self
-        //picker.allowsEditing = true
-        picker.sourceType = .photoLibrary
-        present(picker, animated: true, completion: nil)
-    }
-
-}
-
-extension SecurityQuesionViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        guard let selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage else {
-            return
-        }
-        
-        imgSignature.image = selectedImage
-        
-        signature = ["signature": selectedImage]
-        
-        dismiss(animated: true, completion: nil)
-        
-    }
-    
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        dismiss(animated: true, completion: nil)
-    }
 }
 

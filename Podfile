@@ -8,5 +8,6 @@ target 'PitneyBowes' do
   # Pods for PitneyBowes
 
 pod 'SVProgressHUD'
+pod 'YPDrawSignatureView'
 
 end

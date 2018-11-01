@@ -21,6 +21,7 @@
 		04F42A63217075C2004EA8E8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04F42A62217075C2004EA8E8 /* Assets.xcassets */; };
 		04F42A66217075C2004EA8E8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04F42A64217075C2004EA8E8 /* LaunchScreen.storyboard */; };
 		04F42A8A21707B69004EA8E8 /* GeneralInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F42A8921707B69004EA8E8 /* GeneralInfoViewController.swift */; };
+		3D0F866E218B4B540019EA25 /* AppUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0F866D218B4B540019EA25 /* AppUtility.swift */; };
 		3D261E07217F8BB100FB4D13 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D261E06217F8BB100FB4D13 /* APIManager.swift */; };
 		3D261E0A217F8D1D00FB4D13 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D261E09217F8D1D00FB4D13 /* Constants.swift */; };
 		3D261E0D217F8F1F00FB4D13 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D261E0C217F8F1F00FB4D13 /* User.swift */; };
@@ -59,6 +60,7 @@
 		04F42A67217075C2004EA8E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		04F42A8921707B69004EA8E8 /* GeneralInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralInfoViewController.swift; sourceTree = "<group>"; };
 		0617555E14A220D8C5C478F7 /* Pods-PitneyBowes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PitneyBowes.release.xcconfig"; path = "Pods/Target Support Files/Pods-PitneyBowes/Pods-PitneyBowes.release.xcconfig"; sourceTree = "<group>"; };
+		3D0F866D218B4B540019EA25 /* AppUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUtility.swift; sourceTree = "<group>"; };
 		3D261E06217F8BB100FB4D13 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		3D261E09217F8D1D00FB4D13 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		3D261E0C217F8F1F00FB4D13 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 		04F42A5A217075C1004EA8E8 /* PitneyBowes */ = {
 			isa = PBXGroup;
 			children = (
+				3D0F866F218B4DFD0019EA25 /* App Utility */,
 				3DDABD0E2180D71B00755157 /* XIBs */,
 				3DDABD0B2180D6CB00755157 /* Custom Cell */,
 				F912FEFD2180A1B300FBA36D /* Application Manager */,
@@ -143,6 +146,14 @@
 				0617555E14A220D8C5C478F7 /* Pods-PitneyBowes.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		3D0F866F218B4DFD0019EA25 /* App Utility */ = {
+			isa = PBXGroup;
+			children = (
+				3D0F866D218B4B540019EA25 /* AppUtility.swift */,
+			);
+			path = "App Utility";
 			sourceTree = "<group>";
 		};
 		3D261E02217F8ADB00FB4D13 /* Controllers */ = {
@@ -342,10 +353,12 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-PitneyBowes/Pods-PitneyBowes-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/YPDrawSignatureView/YPDrawSignatureView.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YPDrawSignatureView.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -379,6 +392,7 @@
 			files = (
 				E06075C6217CF58F006E5937 /* LoginViewController.swift in Sources */,
 				F912FEEF2180555300FBA36D /* LoggedInUser+CoreDataClass.swift in Sources */,
+				3D0F866E218B4B540019EA25 /* AppUtility.swift in Sources */,
 				046F7E8C217713CD00B0144C /* TableViewCell.swift in Sources */,
 				04872A7421746F5900B1BA5A /* DriverSealInfoViewController.swift in Sources */,
 				043EFC9321747DD1003C86CB /* NewDalViewController.swift in Sources */,

@@ -85,7 +85,7 @@ class OutBoundViewController: UIViewController {
         
         print("Form data parameters are: \(params)")
         
-        APIManager.saveOutboundInfo(appendingPath: "shipments/add", withQueryString: "user_id=\(userID)&type=\(type)&bol=\(generalInfo.bol)&pro_number=\(generalInfo.proNumber)&carrier=\(generalInfo.carrier)&ngs_location=\(generalInfo.ngsLocation)&latitude=\(generalInfo.latitude)&longitude=\(generalInfo.longitude)&origin=\(generalInfo.destination)&employee_name=\(generalInfo.employeeName)&driver_name=\(driverInfo.driverName)&seal_number=\(driverInfo.sealNumber)&lock_on_trailer=\(driverInfo.isLockOnTrailer)&trailer_number=\(tractorInfo.trailerNumber)&tractor_dot_number=\(tractorInfo.tractorDotNumber)&tractor_plate=\(tractorInfo.tractorPlate)&dont_discuss_shipment=\(questionaireInfo.discussShipment)&dont_carry_passengers=\(questionaireInfo.carryPassengers)&acknowledge_receipt=\(questionaireInfo.acknowledgeReceipt)&alert_contact=\(questionaireInfo.alertContact)", paramerer: params) { (data, error) in
+        APIManager.saveOutboundInfo(appendingPath: "shipments/add", withQueryString: "user_id=\(userID)&type=\(type)&bol=\(generalInfo.bol)&pro_number=\(generalInfo.proNumber)&carrier=\(generalInfo.carrier)&ngs_location=\(generalInfo.ngsLocation)&latitude=\(generalInfo.latitude)&longitude=\(generalInfo.longitude)&origin=\(generalInfo.destination)&state_code=\(generalInfo.state)&employee_name=\(generalInfo.employeeName)&driver_name=\(driverInfo.driverName)&seal_number=\(driverInfo.sealNumber)&lock_on_trailer=\(driverInfo.isLockOnTrailer)&trailer_number=\(tractorInfo.trailerNumber)&tractor_dot_number=\(tractorInfo.tractorDotNumber)&tractor_plate=\(tractorInfo.tractorPlate)&dont_discuss_shipment=\(questionaireInfo.discussShipment)&dont_carry_passengers=\(questionaireInfo.carryPassengers)&acknowledge_receipt=\(questionaireInfo.acknowledgeReceipt)&alert_contact=\(questionaireInfo.alertContact)", paramerer: params) { (data, error) in
             
             if error != nil {
                 print(error!.localizedDescription)
@@ -100,12 +100,13 @@ class OutBoundViewController: UIViewController {
             }
             
             do {
+                self.hideHud()
                 guard let json = try JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String:Any] else {
                     return
                 }
                 
                 print(json)
-                self.hideHud()
+                
                 
                 if let error = json["error"] as? Int {
                     if error == 0 {

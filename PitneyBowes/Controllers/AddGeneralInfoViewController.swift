@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 import AVFoundation
 
 protocol SaveInboundGeneralInfoProtocol {
@@ -24,6 +25,7 @@ struct InboundShipmentGeneralInfo {
     var latitude: Double
     var longitude: Double
     var origin: String
+    var state: String
     var employeeName: String
 }
 
@@ -36,15 +38,11 @@ struct OutboundShipmentGeneralInfo {
     var longitude: Double
     var destination: String
     var sealNumber: String
+    var state: String
     var employeeName: String
 }
 
 class AddGeneralInfoViewController: UIViewController {
-    
-    enum SelectedTextFieldType {
-        case ngsLocation
-        case originOrDestination
-    }
     
     @IBOutlet weak var viewScanner: UIView!
     @IBOutlet weak var btnScan: RoundedBorderButton!
@@ -67,9 +65,6 @@ class AddGeneralInfoViewController: UIViewController {
     
     var inboundGeneralInfoDelegate: SaveInboundGeneralInfoProtocol?
     var outboundGeneralInfoDelegate: SaveOutboundGeneralInfoProtocol?
-    
-    //Select ngs location by default
-    var selectedTextField: SelectedTextFieldType = .ngsLocation
     
     var strSelectedEmployeeName = ""
     
@@ -128,26 +123,27 @@ class AddGeneralInfoViewController: UIViewController {
         btnScan.isHidden = true
         callGetLocationsAPI()
         
+        AppUtility.lockOrientation(.portrait, andRotateTo: .portrait)
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(true)
+        AppUtility.lockOrientation(.all)
+    }
     @IBAction func scanTapped(_ sender: RoundedBorderButton) {
         //view.endEditing(true)
         startScan()
     }
+    
     @IBAction func cancelSelection(_ sender: RoundedBorderButton) {
         showHideLocationPicker(isShow: false)
     }
+    
     @IBAction func doneSelection(_ sender: RoundedBorderButton) {
         showHideLocationPicker(isShow: false)
-        
-        if selectedTextField == .ngsLocation {
-            txtLocation.text = selectedLocation?.name
-        }
-        else {
-            txtOriginOrDestination.text = selectedLocation?.name
-        }
-
+        txtOriginOrDestination.text = selectedLocation?.name
     }
+    
     @IBAction func bolNotApplicableAction(_ sender: UIButton) {
         txtBol.text = "N/A"
     }
@@ -162,14 +158,8 @@ class AddGeneralInfoViewController: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
-    @IBAction func selectNgsLocationTapped(_ sender: UIButton) {
-        selectedTextField = .ngsLocation
-        showHideLocationPicker(isShow: true)
-    }
     @IBAction func selectOriginOrDestinationTapped(_ sender: UIButton) {
-        selectedTextField = .originOrDestination
         showHideLocationPicker(isShow: true)
-
     }
     @objc func saveGeneralInfo() {
         print("Save General Info Tapped")
@@ -181,21 +171,41 @@ class AddGeneralInfoViewController: UIViewController {
             //Change: API won't be called now as per dicussion with shilpa
             //callSaveGeneralInfoAPI()
             print("Save info")
-            guard let type = ApplicationManager.shared.shipmentType else {
-                return
-            }
-            
-            if type == .INBOUND {
-                saveGeneralInfoForInboundShipment()
-            }
-            else if type == .OUTBOUND {
-                saveGeneralInfoForOutboundShipment()
-            }
+
+            getLocationFromAddressAndSaveGeneralInfo(address: txtLocation.text!)
             
             //TODO: Navigate to the inbound/outbound view controller
         case .invalid(let message):
             presentAlert(withTitle: message, message: "")
         }
+    }
+    
+    func getLocationFromAddressAndSaveGeneralInfo(address: String) {
+        let geoCoder = CLGeocoder()
+        
+        geoCoder.geocodeAddressString(address) { (placemarks, error) in
+            guard let placemarks = placemarks, let location = placemarks.first?.location else {
+                // handle no location found
+                self.presentAlert(withTitle: "Location Not found.", message: "Can not find the latitude and longitude for the ngs location you have entered. Please enter correct location")
+                    return
+            }
+            
+            self.latitude = Double(location.coordinate.latitude)
+            self.longitude = Double(location.coordinate.longitude)
+            
+            guard let type = ApplicationManager.shared.shipmentType else {
+                return
+            }
+            
+            if type == .INBOUND {
+                self.saveGeneralInfoForInboundShipment()
+            }
+            else {
+                self.saveGeneralInfoForOutboundShipment()
+            }
+            
+        }
+        
     }
     
     func saveGeneralInfoForInboundShipment() {
@@ -204,11 +214,10 @@ class AddGeneralInfoViewController: UIViewController {
         let proNumber = txtPro.text!
         let carrier = txtCarrier.text!
         let ngsLocation = txtLocation.text!
-        let lat = latitude
-        let long = longitude
+        
         let origin = txtOriginOrDestination.text!
         
-        let generalInfo = InboundShipmentGeneralInfo(bol: bolNumber, proNumber: proNumber, carrier: carrier, ngsLocation: ngsLocation, latitude: lat, longitude: long, origin: origin, employeeName: strSelectedEmployeeName)
+        let generalInfo = InboundShipmentGeneralInfo(bol: bolNumber, proNumber: proNumber, carrier: carrier, ngsLocation: ngsLocation, latitude: latitude, longitude: longitude, origin: origin, state: selectedLocation?.state_code ?? "", employeeName: strSelectedEmployeeName)
         
         //Pass the general info to the InboundViewController via it's delegate
         inboundGeneralInfoDelegate?.didSaveInboundShipmentGeneralInfo(generalInfo: generalInfo)
@@ -221,12 +230,10 @@ class AddGeneralInfoViewController: UIViewController {
         let proNumber = txtPro.text!
         let carrier = txtCarrier.text!
         let ngsLocation = txtLocation.text!
-        let lat = latitude
-        let long = longitude
         let destination = txtOriginOrDestination.text!
         let sealNumber = txtSealNumber.text!
         
-        let generalInfo = OutboundShipmentGeneralInfo(bol: bolNumber, proNumber: proNumber, carrier: carrier, ngsLocation: ngsLocation, latitude: lat, longitude: long, destination: destination, sealNumber: sealNumber, employeeName: strSelectedEmployeeName)
+        let generalInfo = OutboundShipmentGeneralInfo(bol: bolNumber, proNumber: proNumber, carrier: carrier, ngsLocation: ngsLocation, latitude: latitude, longitude: longitude, destination: destination, sealNumber: sealNumber, state: selectedLocation?.state_code ?? "", employeeName: strSelectedEmployeeName)
         
         //Pass the general info to the OutboundViewController via it's delegate
         outboundGeneralInfoDelegate?.didSaveOutboundShipmentGeneralInfo(generalInfo: generalInfo)
@@ -314,6 +321,9 @@ class AddGeneralInfoViewController: UIViewController {
             }
             
             do {
+                
+                let json = try! JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as! [String:Any]
+                print(json)
                 let locations = try JSONDecoder().decode(Locations.self, from: responseData)
                 
                 guard let locationsArray = locations.data else {
@@ -332,6 +342,7 @@ class AddGeneralInfoViewController: UIViewController {
             }
         }
     }
+    
 }
 
 //Scanning code
@@ -402,6 +413,7 @@ extension AddGeneralInfoViewController {
             
         }
     }
+    
     func stopScan() {
         session?.stopRunning()
         session = nil

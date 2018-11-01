@@ -1,16 +1,20 @@
 PODS:
   - SVProgressHUD (2.2.2)
+  - YPDrawSignatureView (1.1.2)
 
 DEPENDENCIES:
   - SVProgressHUD
+  - YPDrawSignatureView
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - SVProgressHUD
+    - YPDrawSignatureView
 
 SPEC CHECKSUMS:
   SVProgressHUD: 59b2d3dabacbd051576d21d32293ca7228dc18b0
+  YPDrawSignatureView: 0ca1cfcd329b9f4bf74172859f80a47a200a0e0d
 
-PODFILE CHECKSUM: dfe1434065de979db7cbd2f4105f06b30d7edacf
+PODFILE CHECKSUM: 0f7a4fea5485d69196f79ba96a15daa5788b7ec5
 
-COCOAPODS: 1.5.2
+COCOAPODS: 1.5.3
