@@ -31,6 +31,7 @@ class GeneralInfoViewController: UIViewController{
         self.navigationItem.rightBarButtonItem = rightBarButton
         
         tblShipments.register(UINib(nibName: "GeneralInfoCell", bundle: Bundle.main), forCellReuseIdentifier: "GeneralInfoCell")
+        tblShipments.tableFooterView = UIView()
         
         fetchEmployees()
         fetchGeneralInfoEntries()
@@ -48,15 +49,20 @@ class GeneralInfoViewController: UIViewController{
     @IBAction func doneEmployeeSelection(_ sender: RoundedBorderButton) {
         showHideLocationPicker(isShow: false)
         txtCargo.text = selectedEmployee?.Employee?.name
+        navigateToAddGeneralInfoVC()
     }
+    
     @objc func add(_ sender: Any){
-        
+        navigateToAddGeneralInfoVC()
+    }
+    
+    func navigateToAddGeneralInfoVC() {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "AddGeneralInfoViewController") as! AddGeneralInfoViewController
-
+        
         if ApplicationManager.shared.shipmentType == .INBOUND {
             vc.inboundGeneralInfoDelegate = inboundDataReceiverVc!
         }
-        
+            
         else {
             vc.outboundGeneralInfoDelegate = outboundDataReceiverVc!
         }
@@ -66,8 +72,8 @@ class GeneralInfoViewController: UIViewController{
         }
         
         self.navigationController?.pushViewController(vc, animated:true)
+
     }
-    
     func showHideLocationPicker(isShow: Bool) {
         if isShow {
             viewPickerBottomConstraint.constant = 0

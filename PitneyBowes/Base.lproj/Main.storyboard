@@ -496,7 +496,7 @@
                                 <rect key="frame" x="228" y="69" width="329" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="next"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" returnKeyType="next"/>
                                 <connections>
                                     <outlet property="delegate" destination="StA-g2-1nM" id="Jdk-Sw-SxF"/>
                                 </connections>
@@ -505,7 +505,7 @@
                                 <rect key="frame" x="228" y="121.5" width="329" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="next"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" returnKeyType="next"/>
                                 <connections>
                                     <outlet property="delegate" destination="StA-g2-1nM" id="tGU-hB-FVm"/>
                                 </connections>
@@ -514,7 +514,7 @@
                                 <rect key="frame" x="228" y="174.5" width="440" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="next"/>
                                 <connections>
                                     <outlet property="delegate" destination="StA-g2-1nM" id="bNE-7k-CVb"/>
                                 </connections>
@@ -523,7 +523,10 @@
                                 <rect key="frame" x="228" y="227" width="440" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
+                                <connections>
+                                    <outlet property="delegate" destination="StA-g2-1nM" id="HKE-h4-kHW"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xW1-ZC-brl">
                                 <rect key="frame" x="228" y="279.5" width="440" height="30"/>
@@ -665,7 +668,7 @@
                                         <rect key="frame" x="164" y="0.0" width="329" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" returnKeyType="done"/>
                                         <connections>
                                             <outlet property="delegate" destination="StA-g2-1nM" id="8i5-29-eKt"/>
                                         </connections>
@@ -776,7 +779,7 @@
                                 <rect key="frame" x="373.5" y="68" width="344.5" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="next"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="next"/>
                                 <connections>
                                     <outlet property="delegate" destination="bbW-1M-ehg" id="A1r-dy-Kda"/>
                                 </connections>
@@ -785,7 +788,7 @@
                                 <rect key="frame" x="373.5" y="118.5" width="269.5" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" returnKeyType="done"/>
                                 <connections>
                                     <outlet property="delegate" destination="bbW-1M-ehg" id="MAU-LK-uSZ"/>
                                 </connections>
@@ -1109,7 +1112,7 @@
                                 <rect key="frame" x="305.5" y="65.5" width="442.5" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="next"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="no" returnKeyType="next"/>
                                 <connections>
                                     <outlet property="delegate" destination="edf-9h-GWc" id="1Wf-V8-XcU"/>
                                 </connections>
@@ -1118,7 +1121,7 @@
                                 <rect key="frame" x="305.5" y="111" width="442.5" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="next"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="no" returnKeyType="next"/>
                                 <connections>
                                     <outlet property="delegate" destination="edf-9h-GWc" id="Gi2-zm-jcl"/>
                                 </connections>
@@ -1127,7 +1130,7 @@
                                 <rect key="frame" x="305.5" y="156" width="442.5" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="no" returnKeyType="done"/>
                                 <connections>
                                     <outlet property="delegate" destination="edf-9h-GWc" id="Ch3-JV-ASW"/>
                                 </connections>
@@ -1551,13 +1554,13 @@
                                     <action selector="answerSelected:" destination="TFK-vY-no5" eventType="valueChanged" id="khw-aC-fZN"/>
                                 </connections>
                             </switch>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Do not discuss Shipment details with anyone" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z8C-NP-VUd">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Do not discuss shipment details with anyone" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z8C-NP-VUd">
                                 <rect key="frame" x="152" y="73.5" width="596" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Driver Will Carry Unauthorized Passengers" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cls-3q-5gI">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Driver will not carry unauthorized passengers" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cls-3q-5gI">
                                 <rect key="frame" x="152" y="129.5" width="596" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1569,7 +1572,7 @@
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Driver Will alert appropriate Contact Center for Suspicious activity or vehicles" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oLK-Uw-hGW">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Driver will alert appropriate contact center for suspicious activity or vehicles" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oLK-Uw-hGW">
                                 <rect key="frame" x="152" y="224.5" width="596" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="5Bb-en-oCY"/>

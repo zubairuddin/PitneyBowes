@@ -29,7 +29,7 @@ class OutBoundViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "New DaL!"
+        self.title = "New DaLI"
         self.navigationItem.setHidesBackButton(true, animated: false)
         
         let CancleButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.cancel,

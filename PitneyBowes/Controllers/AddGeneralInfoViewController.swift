@@ -124,6 +124,7 @@ class AddGeneralInfoViewController: UIViewController {
         callGetLocationsAPI()
         
         AppUtility.lockOrientation(.portrait, andRotateTo: .portrait)
+        
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -257,6 +258,8 @@ class AddGeneralInfoViewController: UIViewController {
 
     func showHideLocationPicker(isShow: Bool) {
         if isShow {
+            
+            txtLocation.resignFirstResponder()
             viewPickerBottomConstraint.constant = 0
             
             //Default row selection
@@ -349,6 +352,8 @@ class AddGeneralInfoViewController: UIViewController {
 extension AddGeneralInfoViewController {
     func startScan() {
         
+        //Barcode TESTING: https://barcode.tec-it.com/en/Code39?data=ABC-1234
+        
         //Create a capture session
         session = AVCaptureSession()
         
@@ -371,8 +376,11 @@ extension AddGeneralInfoViewController {
             session?.addInput(deviceInput!)
             session?.addOutput(output)
             
-            output.metadataObjectTypes = [.ean13]
+//            output.metadataObjectTypes = [.ean13, .upce, .aztec, .code128, .code39, .code39Mod43, .dataMatrix, .ean8, .qr, .pdf417, .itf14, .face, .interleaved2of5, .code93,]
             
+            output.metadataObjectTypes = output.availableMetadataObjectTypes
+            
+            print(output.availableMetadataObjectTypes)
             //Add the preview layer
             guard let captureSession = session else {
                 return
@@ -430,8 +438,8 @@ extension AddGeneralInfoViewController: AVCaptureMetadataOutputObjectsDelegate {
                 return
             }
             
-            //Check if detected code is a barcode and convert it to string
-            if readableCode.type == .ean13 {
+            //No need to check for .ean13 barcodes as we will detect all types of barcodes
+            //if readableCode.type == .ean13 {
                 guard let stringCode = readableCode.stringValue else {
                     return
                 }
@@ -443,16 +451,14 @@ extension AddGeneralInfoViewController: AVCaptureMetadataOutputObjectsDelegate {
                 
                 //Show the scanned code in the selected text field
                 if txtBol.isFirstResponder {
-                    txtBol.text = stringCode
+                    txtBol.text = stringCode.uppercased()
                 }
                 else if txtPro.isFirstResponder {
-                    txtPro.text = stringCode
+                    txtPro.text = stringCode.uppercased()
                 }
                 
-                //presentAlert(withTitle: "Barcode Scanned.", message: stringCode)
-                
                 return
-            }
+            //}
         }
     }
 }
@@ -484,6 +490,10 @@ extension AddGeneralInfoViewController: UITextFieldDelegate {
         else if textField == txtPro {
             txtCarrier.becomeFirstResponder()
         }
+        else if textField == txtCarrier {
+            txtLocation.becomeFirstResponder()
+        }
+
         else {
             textField.resignFirstResponder()
         }
