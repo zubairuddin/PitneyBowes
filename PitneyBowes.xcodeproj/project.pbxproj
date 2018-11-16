@@ -22,13 +22,32 @@
 		04F42A66217075C2004EA8E8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04F42A64217075C2004EA8E8 /* LaunchScreen.storyboard */; };
 		04F42A8A21707B69004EA8E8 /* GeneralInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F42A8921707B69004EA8E8 /* GeneralInfoViewController.swift */; };
 		3D0F866E218B4B540019EA25 /* AppUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0F866D218B4B540019EA25 /* AppUtility.swift */; };
+		3D15B388219519A000B60F4D /* SavedShipmentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D15B387219519A000B60F4D /* SavedShipmentCollectionViewCell.swift */; };
 		3D261E07217F8BB100FB4D13 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D261E06217F8BB100FB4D13 /* APIManager.swift */; };
 		3D261E0A217F8D1D00FB4D13 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D261E09217F8D1D00FB4D13 /* Constants.swift */; };
 		3D261E0D217F8F1F00FB4D13 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D261E0C217F8F1F00FB4D13 /* User.swift */; };
 		3D261E1021800E3E00FB4D13 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D261E0F21800E3E00FB4D13 /* Extensions.swift */; };
+		3D572F4621934AF2003FCF0F /* OutboundTractorInfo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D572F4421934AF2003FCF0F /* OutboundTractorInfo+CoreDataClass.swift */; };
+		3D572F4721934AF2003FCF0F /* OutboundTractorInfo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D572F4521934AF2003FCF0F /* OutboundTractorInfo+CoreDataProperties.swift */; };
+		3D572F4A21934B3B003FCF0F /* OutboundQuestionnaireInfo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D572F4821934B3B003FCF0F /* OutboundQuestionnaireInfo+CoreDataClass.swift */; };
+		3D572F4B21934B3B003FCF0F /* OutboundQuestionnaireInfo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D572F4921934B3B003FCF0F /* OutboundQuestionnaireInfo+CoreDataProperties.swift */; };
+		3D572F4E21934BA1003FCF0F /* OutboundDriverInfo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D572F4C21934BA1003FCF0F /* OutboundDriverInfo+CoreDataClass.swift */; };
+		3D572F4F21934BA1003FCF0F /* OutboundDriverInfo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D572F4D21934BA1003FCF0F /* OutboundDriverInfo+CoreDataProperties.swift */; };
+		3D572F5621934CF5003FCF0F /* OutboundGeneralInfo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D572F5421934CF5003FCF0F /* OutboundGeneralInfo+CoreDataClass.swift */; };
+		3D572F5721934CF5003FCF0F /* OutboundGeneralInfo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D572F5521934CF5003FCF0F /* OutboundGeneralInfo+CoreDataProperties.swift */; };
+		3D572F5A21934DAB003FCF0F /* SavedOutbound+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D572F5821934DAB003FCF0F /* SavedOutbound+CoreDataClass.swift */; };
+		3D572F5B21934DAB003FCF0F /* SavedOutbound+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D572F5921934DAB003FCF0F /* SavedOutbound+CoreDataProperties.swift */; };
 		3D60FAA22181611A005DCE78 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D60FAA12181611A005DCE78 /* Location.swift */; };
 		3DDABD0D2180D6E300755157 /* GeneralInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDABD0C2180D6E300755157 /* GeneralInfoCell.swift */; };
 		3DDABD102180D72F00755157 /* GeneralInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DDABD0F2180D72F00755157 /* GeneralInfoCell.xib */; };
+		3DEDB6FC2192BA6400FDF4AB /* SavedShipmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEDB6FB2192BA6400FDF4AB /* SavedShipmentViewController.swift */; };
+		3DEDB70D2192C9CD00FDF4AB /* InboundGeneralInfo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEDB7092192C9CD00FDF4AB /* InboundGeneralInfo+CoreDataClass.swift */; };
+		3DEDB70E2192C9CD00FDF4AB /* InboundGeneralInfo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEDB70A2192C9CD00FDF4AB /* InboundGeneralInfo+CoreDataProperties.swift */; };
+		3DEDB70F2192C9CD00FDF4AB /* SavedInbound+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEDB70B2192C9CD00FDF4AB /* SavedInbound+CoreDataClass.swift */; };
+		3DEDB7102192C9CD00FDF4AB /* SavedInbound+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEDB70C2192C9CD00FDF4AB /* SavedInbound+CoreDataProperties.swift */; };
+		3DEDB7132192CBB000FDF4AB /* InboundDriverInfo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEDB7112192CBB000FDF4AB /* InboundDriverInfo+CoreDataClass.swift */; };
+		3DEDB7142192CBB000FDF4AB /* InboundDriverInfo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEDB7122192CBB000FDF4AB /* InboundDriverInfo+CoreDataProperties.swift */; };
+		3DEDB7162192F84D00FDF4AB /* SavedShipmentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DEDB7152192F84D00FDF4AB /* SavedShipmentCell.swift */; };
 		86DEF26368AA93E5246365F8 /* Pods_PitneyBowes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5EAB368FACB7D88B092D1FA /* Pods_PitneyBowes.framework */; };
 		E0190068217DEC2B00E4B372 /* RoundedBorderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0190067217DEC2B00E4B372 /* RoundedBorderButton.swift */; };
 		E06075C4217CF19B006E5937 /* pb-new-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = E06075C3217CF19B006E5937 /* pb-new-logo.png */; };
@@ -61,13 +80,32 @@
 		04F42A8921707B69004EA8E8 /* GeneralInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralInfoViewController.swift; sourceTree = "<group>"; };
 		0617555E14A220D8C5C478F7 /* Pods-PitneyBowes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PitneyBowes.release.xcconfig"; path = "Pods/Target Support Files/Pods-PitneyBowes/Pods-PitneyBowes.release.xcconfig"; sourceTree = "<group>"; };
 		3D0F866D218B4B540019EA25 /* AppUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUtility.swift; sourceTree = "<group>"; };
+		3D15B387219519A000B60F4D /* SavedShipmentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedShipmentCollectionViewCell.swift; sourceTree = "<group>"; };
 		3D261E06217F8BB100FB4D13 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		3D261E09217F8D1D00FB4D13 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		3D261E0C217F8F1F00FB4D13 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		3D261E0F21800E3E00FB4D13 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		3D572F4421934AF2003FCF0F /* OutboundTractorInfo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OutboundTractorInfo+CoreDataClass.swift"; sourceTree = "<group>"; };
+		3D572F4521934AF2003FCF0F /* OutboundTractorInfo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OutboundTractorInfo+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		3D572F4821934B3B003FCF0F /* OutboundQuestionnaireInfo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OutboundQuestionnaireInfo+CoreDataClass.swift"; sourceTree = "<group>"; };
+		3D572F4921934B3B003FCF0F /* OutboundQuestionnaireInfo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OutboundQuestionnaireInfo+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		3D572F4C21934BA1003FCF0F /* OutboundDriverInfo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OutboundDriverInfo+CoreDataClass.swift"; sourceTree = "<group>"; };
+		3D572F4D21934BA1003FCF0F /* OutboundDriverInfo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OutboundDriverInfo+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		3D572F5421934CF5003FCF0F /* OutboundGeneralInfo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OutboundGeneralInfo+CoreDataClass.swift"; sourceTree = "<group>"; };
+		3D572F5521934CF5003FCF0F /* OutboundGeneralInfo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OutboundGeneralInfo+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		3D572F5821934DAB003FCF0F /* SavedOutbound+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SavedOutbound+CoreDataClass.swift"; sourceTree = "<group>"; };
+		3D572F5921934DAB003FCF0F /* SavedOutbound+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SavedOutbound+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		3D60FAA12181611A005DCE78 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		3DDABD0C2180D6E300755157 /* GeneralInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralInfoCell.swift; sourceTree = "<group>"; };
 		3DDABD0F2180D72F00755157 /* GeneralInfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GeneralInfoCell.xib; sourceTree = "<group>"; };
+		3DEDB6FB2192BA6400FDF4AB /* SavedShipmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedShipmentViewController.swift; sourceTree = "<group>"; };
+		3DEDB7092192C9CD00FDF4AB /* InboundGeneralInfo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InboundGeneralInfo+CoreDataClass.swift"; sourceTree = "<group>"; };
+		3DEDB70A2192C9CD00FDF4AB /* InboundGeneralInfo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InboundGeneralInfo+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		3DEDB70B2192C9CD00FDF4AB /* SavedInbound+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SavedInbound+CoreDataClass.swift"; sourceTree = "<group>"; };
+		3DEDB70C2192C9CD00FDF4AB /* SavedInbound+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SavedInbound+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		3DEDB7112192CBB000FDF4AB /* InboundDriverInfo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InboundDriverInfo+CoreDataClass.swift"; sourceTree = "<group>"; };
+		3DEDB7122192CBB000FDF4AB /* InboundDriverInfo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InboundDriverInfo+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		3DEDB7152192F84D00FDF4AB /* SavedShipmentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedShipmentCell.swift; sourceTree = "<group>"; };
 		C5EAB368FACB7D88B092D1FA /* Pods_PitneyBowes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PitneyBowes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0190067217DEC2B00E4B372 /* RoundedBorderButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedBorderButton.swift; sourceTree = "<group>"; };
 		E06075C3217CF19B006E5937 /* pb-new-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pb-new-logo.png"; sourceTree = "<group>"; };
@@ -169,6 +207,7 @@
 				043EFC9821749F4A003C86CB /* TractorandTrailerViewController.swift */,
 				043EFC9A2174C3A5003C86CB /* SecurityQuesionViewController.swift */,
 				043EFC9D2174D7F2003C86CB /* OutBoundViewController.swift */,
+				3DEDB6FB2192BA6400FDF4AB /* SavedShipmentViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -228,6 +267,8 @@
 			isa = PBXGroup;
 			children = (
 				3DDABD0C2180D6E300755157 /* GeneralInfoCell.swift */,
+				3DEDB7152192F84D00FDF4AB /* SavedShipmentCell.swift */,
+				3D15B387219519A000B60F4D /* SavedShipmentCollectionViewCell.swift */,
 			);
 			path = "Custom Cell";
 			sourceTree = "<group>";
@@ -251,6 +292,22 @@
 		F912FEEC218054E000FBA36D /* Core Data Classes */ = {
 			isa = PBXGroup;
 			children = (
+				3D572F5821934DAB003FCF0F /* SavedOutbound+CoreDataClass.swift */,
+				3D572F5921934DAB003FCF0F /* SavedOutbound+CoreDataProperties.swift */,
+				3D572F5421934CF5003FCF0F /* OutboundGeneralInfo+CoreDataClass.swift */,
+				3D572F5521934CF5003FCF0F /* OutboundGeneralInfo+CoreDataProperties.swift */,
+				3D572F4C21934BA1003FCF0F /* OutboundDriverInfo+CoreDataClass.swift */,
+				3D572F4D21934BA1003FCF0F /* OutboundDriverInfo+CoreDataProperties.swift */,
+				3D572F4821934B3B003FCF0F /* OutboundQuestionnaireInfo+CoreDataClass.swift */,
+				3D572F4921934B3B003FCF0F /* OutboundQuestionnaireInfo+CoreDataProperties.swift */,
+				3D572F4421934AF2003FCF0F /* OutboundTractorInfo+CoreDataClass.swift */,
+				3D572F4521934AF2003FCF0F /* OutboundTractorInfo+CoreDataProperties.swift */,
+				3DEDB7112192CBB000FDF4AB /* InboundDriverInfo+CoreDataClass.swift */,
+				3DEDB7122192CBB000FDF4AB /* InboundDriverInfo+CoreDataProperties.swift */,
+				3DEDB7092192C9CD00FDF4AB /* InboundGeneralInfo+CoreDataClass.swift */,
+				3DEDB70A2192C9CD00FDF4AB /* InboundGeneralInfo+CoreDataProperties.swift */,
+				3DEDB70B2192C9CD00FDF4AB /* SavedInbound+CoreDataClass.swift */,
+				3DEDB70C2192C9CD00FDF4AB /* SavedInbound+CoreDataProperties.swift */,
 				F912FEED2180555300FBA36D /* LoggedInUser+CoreDataClass.swift */,
 				F912FEEE2180555300FBA36D /* LoggedInUser+CoreDataProperties.swift */,
 			);
@@ -390,31 +447,50 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3DEDB7132192CBB000FDF4AB /* InboundDriverInfo+CoreDataClass.swift in Sources */,
+				3D572F5B21934DAB003FCF0F /* SavedOutbound+CoreDataProperties.swift in Sources */,
+				3D572F4B21934B3B003FCF0F /* OutboundQuestionnaireInfo+CoreDataProperties.swift in Sources */,
+				3DEDB70D2192C9CD00FDF4AB /* InboundGeneralInfo+CoreDataClass.swift in Sources */,
 				E06075C6217CF58F006E5937 /* LoginViewController.swift in Sources */,
+				3DEDB70F2192C9CD00FDF4AB /* SavedInbound+CoreDataClass.swift in Sources */,
 				F912FEEF2180555300FBA36D /* LoggedInUser+CoreDataClass.swift in Sources */,
+				3D572F4621934AF2003FCF0F /* OutboundTractorInfo+CoreDataClass.swift in Sources */,
+				3DEDB7162192F84D00FDF4AB /* SavedShipmentCell.swift in Sources */,
 				3D0F866E218B4B540019EA25 /* AppUtility.swift in Sources */,
+				3D572F4F21934BA1003FCF0F /* OutboundDriverInfo+CoreDataProperties.swift in Sources */,
 				046F7E8C217713CD00B0144C /* TableViewCell.swift in Sources */,
 				04872A7421746F5900B1BA5A /* DriverSealInfoViewController.swift in Sources */,
+				3D572F5621934CF5003FCF0F /* OutboundGeneralInfo+CoreDataClass.swift in Sources */,
 				043EFC9321747DD1003C86CB /* NewDalViewController.swift in Sources */,
 				3D261E0D217F8F1F00FB4D13 /* User.swift in Sources */,
 				E0190068217DEC2B00E4B372 /* RoundedBorderButton.swift in Sources */,
+				3D572F4A21934B3B003FCF0F /* OutboundQuestionnaireInfo+CoreDataClass.swift in Sources */,
 				3D60FAA22181611A005DCE78 /* Location.swift in Sources */,
 				3D261E0A217F8D1D00FB4D13 /* Constants.swift in Sources */,
 				F9116B1721831BE700C4173B /* Employee.swift in Sources */,
 				F912FEFF2180A20D00FBA36D /* ApplicationManager.swift in Sources */,
+				3D572F4721934AF2003FCF0F /* OutboundTractorInfo+CoreDataProperties.swift in Sources */,
 				0478C47F2170D3F700DF8834 /* AddGeneralInfoViewController.swift in Sources */,
+				3D15B388219519A000B60F4D /* SavedShipmentCollectionViewCell.swift in Sources */,
+				3D572F4E21934BA1003FCF0F /* OutboundDriverInfo+CoreDataClass.swift in Sources */,
 				3DDABD0D2180D6E300755157 /* GeneralInfoCell.swift in Sources */,
 				3D261E07217F8BB100FB4D13 /* APIManager.swift in Sources */,
 				F912FEEB218054BD00FBA36D /* PitneyBowes.xcdatamodeld in Sources */,
 				F912FF012180A83C00FBA36D /* Shipment.swift in Sources */,
+				3DEDB70E2192C9CD00FDF4AB /* InboundGeneralInfo+CoreDataProperties.swift in Sources */,
 				04F42A8A21707B69004EA8E8 /* GeneralInfoViewController.swift in Sources */,
+				3DEDB6FC2192BA6400FDF4AB /* SavedShipmentViewController.swift in Sources */,
 				0482184C2178A81D0031BFAE /* MainViewController.swift in Sources */,
 				043EFC9921749F4A003C86CB /* TractorandTrailerViewController.swift in Sources */,
+				3DEDB7142192CBB000FDF4AB /* InboundDriverInfo+CoreDataProperties.swift in Sources */,
 				0453452A2178D49D00277826 /* InboundViewController.swift in Sources */,
+				3D572F5721934CF5003FCF0F /* OutboundGeneralInfo+CoreDataProperties.swift in Sources */,
 				F912FEF02180555300FBA36D /* LoggedInUser+CoreDataProperties.swift in Sources */,
 				043EFC9E2174D7F2003C86CB /* OutBoundViewController.swift in Sources */,
 				3D261E1021800E3E00FB4D13 /* Extensions.swift in Sources */,
 				04F42A5C217075C1004EA8E8 /* AppDelegate.swift in Sources */,
+				3DEDB7102192C9CD00FDF4AB /* SavedInbound+CoreDataProperties.swift in Sources */,
+				3D572F5A21934DAB003FCF0F /* SavedOutbound+CoreDataClass.swift in Sources */,
 				043EFC9B2174C3A5003C86CB /* SecurityQuesionViewController.swift in Sources */,
 				F912FEF32180557A00FBA36D /* DatabaseManager.swift in Sources */,
 			);
@@ -557,7 +633,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 39DDS7649B;
 				INFOPLIST_FILE = PitneyBowes/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = mac.ConstantIpadView;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -574,7 +650,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 39DDS7649B;
 				INFOPLIST_FILE = PitneyBowes/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = mac.ConstantIpadView;
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -172,6 +172,7 @@ class LoginViewController: UIViewController {
                     DispatchQueue.main.async {
                         self.presentAlert(withTitle: "Unable to login.", message: "Please make sure you have entered correct email and password and try again.")
                     }
+                
                     return
                 }
                 

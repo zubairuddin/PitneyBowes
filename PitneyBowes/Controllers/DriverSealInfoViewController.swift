@@ -39,6 +39,11 @@ class DriverSeallnfoViewController: UIViewController {
     var inboundDriverInfoDelegate: SaveInboundDriverInfoProtocol?
     var outboundDriverInfoDelegate: SaveOutboundDriverInfoProtocol?
     
+    var inboundDriverAndSealInfo: InboundDriverInfo?
+    var outboundDriverAndSealInfo: OutboundDriverInfo?
+    
+    let type = ApplicationManager.shared.shipmentType
+    
     override func viewDidLoad() {
         super.viewDidLoad()
        self.title = "Driver and Seal Information"
@@ -46,7 +51,39 @@ class DriverSeallnfoViewController: UIViewController {
         let saveButton = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(saveDriverInfoTapped))
         navigationItem.rightBarButtonItem = saveButton
         
-        segmentIsLock.selectedSegmentIndex = 0
+        if type == .INBOUND {
+            //If driver info is available from saved shipment, show it on text fields
+            if let info = inboundDriverAndSealInfo {
+                txtDriverName.text = info.driverName
+                txtSealNumber.text = info.sealNumber
+                
+                switch info.lockOnTrailer {
+                case "Yes":
+                    segmentIsLock.selectedSegmentIndex = 0
+                case "No":
+                    segmentIsLock.selectedSegmentIndex = 1
+                default:
+                    break
+                }
+            }
+        }
+        else {
+            //If driver info is available from saved shipment, show it on text fields
+            if let info = outboundDriverAndSealInfo {
+                txtDriverName.text = info.driverName
+                txtSealNumber.text = info.sealNumber
+                
+                switch info.lockOnTrailer {
+                case "Yes":
+                    segmentIsLock.selectedSegmentIndex = 0
+                case "No":
+                    segmentIsLock.selectedSegmentIndex = 1
+                default:
+                    break
+                }
+            }
+        }
+        
     }
     
     @IBAction func segmentChanged(_ sender: UISegmentedControl) {
@@ -55,8 +92,6 @@ class DriverSeallnfoViewController: UIViewController {
             strIsLock = "Yes"
         case 1:
             strIsLock = "No"
-        case 2:
-            strIsLock = "N/A"
             
         default:
             break
@@ -89,8 +124,6 @@ class DriverSeallnfoViewController: UIViewController {
             
             let driverInfo = InboundShipmentDriverInfo(driverName: driverName, sealNumber: sealNumber, isLockOnTrailer: strIsLock)
             inboundDriverInfoDelegate?.didSaveInboundShipmentDriverInfo(driverInfo: driverInfo)
-            //popToInboundVC()
-            
         }
             
         else if type  == .OUTBOUND {
@@ -100,7 +133,6 @@ class DriverSeallnfoViewController: UIViewController {
             let driverInfo = OutboundShipmentDriverInfo(driverName: driverName, sealNumber: sealNumber, isLockOnTrailer: strIsLock)
             
             outboundDriverInfoDelegate?.didSaveOutboundShipmentDriverInfo(driverInfo: driverInfo)
-            //popToOutboundVC()
         }
         
         navigationController?.popViewController(animated: true)

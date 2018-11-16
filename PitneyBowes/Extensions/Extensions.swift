@@ -45,6 +45,21 @@ extension UIViewController {
         self.present(alertController, animated: true, completion: nil)
     }
     
+    func popToMainVC() {
+        for vc in navigationController!.viewControllers {
+            if vc is MainViewController {
+                navigationController?.popToViewController(vc, animated: true)
+            }
+        }
+    }
+
+    func showGeneralInfoMissingAlert() {
+        let alertController = UIAlertController(title: "General Info missing.", message: "Please enter general info first.", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
     func hideHud() {
         DispatchQueue.main.async {
             SVProgressHUD.dismiss()

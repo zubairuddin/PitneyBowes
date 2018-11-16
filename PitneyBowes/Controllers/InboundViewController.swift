@@ -10,21 +10,64 @@ import UIKit
 import SVProgressHUD
 
 class InboundViewController : UIViewController {
-    
-    var inboundGeneralInfo: InboundShipmentGeneralInfo?
-    var inboundDriverInfo: InboundShipmentDriverInfo?
-    
+
     @IBOutlet weak var imgGeneralInfo: UIImageView!
     @IBOutlet weak var imgDriverInfo: UIImageView!
     @IBOutlet weak var lblRequiredFields: UILabel!
+    @IBOutlet weak var btnSavedInbound: RoundedBorderButton!
     
-    var isGeneralInfoEntered = false
-    var isDriverInfoEntered = false
+    var savedInbound: SavedInbound?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         addNavBarImage()
+        
+        //If we are not coming from SavedInbound screen, then savedInbound will be nil
+        if savedInbound == nil {
+            print("Adding new inbound shipment")
+            //savedInbound = SavedInbound(context: MANAGED_OBJECT_CONTEXT)
+            btnSavedInbound.isHidden = false
+        }
+        else {
+            print("Updating the inbound shipment")
+            //Hide SavedInbound button
+            btnSavedInbound.isHidden = true
+            
+            //Logic to show/hide checkmark
+            showHideCheckMarkAndLabel()
+            //*************************************//
+        }
+
     }
+
+    override func viewWillAppear(_ animated: Bool) {
+
+    }
+    
+    func showHideCheckMarkAndLabel() {
+        if savedInbound?.generalInfo != nil && savedInbound?.driverInfo != nil{
+            imgGeneralInfo.isHidden = false
+            imgDriverInfo.isHidden = false
+            lblRequiredFields.isHidden = true
+        }
+        else if savedInbound?.generalInfo != nil && savedInbound?.driverInfo == nil {
+            imgGeneralInfo.isHidden = false
+            imgDriverInfo.isHidden = true
+            lblRequiredFields.isHidden = false
+            
+        }
+        else if savedInbound?.generalInfo == nil && savedInbound?.driverInfo != nil {
+            imgGeneralInfo.isHidden = true
+            imgDriverInfo.isHidden = false
+            lblRequiredFields.isHidden = false
+        }
+        else if savedInbound?.generalInfo == nil && savedInbound?.driverInfo == nil {
+            imgGeneralInfo.isHidden = true
+            imgDriverInfo.isHidden = true
+            lblRequiredFields.isHidden = false
+        }
+    }
+    
     
     func addNavBarImage() {
         
@@ -45,17 +88,44 @@ class InboundViewController : UIViewController {
         navigationItem.titleView = imageView
     }
     
-    func callSaveInboundShipmentAPI() {
-    }
-    
-    @IBAction func Button_Driver(_ sender: UIButton) {
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "DriverSeallnfoViewController")as! DriverSeallnfoViewController
-        vc.inboundDriverInfoDelegate = self
+    @IBAction func button_generalInfoPressed(_ sender: UIButton) {
+        
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "GeneralInfoViewController")as! GeneralInfoViewController
+        vc.inboundDataReceiverVc = self
+        
+        //Check if general info available for saved inbound
+        if let info = savedInbound?.generalInfo {
+            vc.inboundGeneralInfo = info
+        }
+        
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
+    @IBAction func Button_Driver(_ sender: UIButton) {
+        
+        if savedInbound == nil {
+            showGeneralInfoMissingAlert()
+            return
+        }
+
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "DriverSeallnfoViewController")as! DriverSeallnfoViewController
+        vc.inboundDriverInfoDelegate = self
+        
+        //Check if driver info available for saved inbound
+        if let info = savedInbound?.driverInfo {
+            vc.inboundDriverAndSealInfo = info
+        }
+        
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @IBAction func savedInboundTapped(_ sender: RoundedBorderButton) {
+        let vc = storyboard?.instantiateViewController(withIdentifier: "SavedShipmentViewController") as! SavedShipmentViewController
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
     @IBAction func submitInboundShipment(_ sender: UIButton) {
-        guard let generalInfo = inboundGeneralInfo, let driverInfo = inboundDriverInfo else {
+        guard let generalInfo = savedInbound?.generalInfo, let driverInfo = savedInbound?.driverInfo else {
             presentAlert(withTitle: "Required Info Missing.", message: "")
             return
         }
@@ -68,7 +138,7 @@ class InboundViewController : UIViewController {
         SVProgressHUD.show(withStatus: "Submitting...")
         SVProgressHUD.setDefaultMaskType(.black)
         
-        APIManager.executeRequest(appendingPath: "shipments/add", withQueryString: "user_id=\(userId)&bol=\(generalInfo.bol)&pro_number=\(generalInfo.proNumber)&carries=\(generalInfo.carrier)&ngs_location=\(generalInfo.ngsLocation)&latitude=\(generalInfo.latitude)&longitude=\(generalInfo.longitude)&origin=\(generalInfo.origin)&state_code=\(generalInfo.state)employee_name=\(generalInfo.employeeName)&driver_name=\(driverInfo.driverName)&seal_number=\(driverInfo.sealNumber)&lock_on_trailer=\(driverInfo.isLockOnTrailer)", httpMethod: "POST") { (data, error) in
+        APIManager.executeRequest(appendingPath: "shipments/add", withQueryString: "user_id=\(userId)&bol=\(generalInfo.bolNumber)&pro_number=\(generalInfo.proNumber)&carries=\(generalInfo.carrier)&ngs_location=\(generalInfo.ngsLocation)&latitude=\(generalInfo.latitude)&longitude=\(generalInfo.longitude)&origin=\(generalInfo.origin)&state_code=\(generalInfo.stateCode)&employee_name=\(generalInfo.employeeName)&driver_name=\(driverInfo.driverName)&seal_number=\(driverInfo.sealNumber)&lock_on_trailer=\(driverInfo.lockOnTrailer)", httpMethod: "POST") { (data, error) in
             
             if error != nil {
                 print("Error while adding inbound shipment : \(error!.localizedDescription)")
@@ -98,24 +168,33 @@ class InboundViewController : UIViewController {
                         
                         DispatchQueue.main.async {
                             if let message = json["message"] as? String {
-                                self.presentAlert(withTitle: message, message: "")
+                                //self.presentAlert(withTitle: message, message: "")
+                                
+                                let alert = UIAlertController(title: message, message: "", preferredStyle: .alert)
+                                let okAction = UIAlertAction(title: "OK", style: .default, handler: { (action) in
+                                    //Remove the saved inbound from Core Data
+                                    KAPPDELEGATE.persistentContainer.viewContext.delete(self.savedInbound!)
+                                    do {
+                                        try KAPPDELEGATE.persistentContainer.viewContext.save()
+                                        print("Deleted successfully")
+                                        self.showHideCheckMarkAndLabel()
+                                        self.savedInbound = nil
+                                        //self.navigationController?.popViewController(animated: true)
+                                        self.popToMainVC()
+                                    }
+                                    catch let error {
+                                        print("Unable to delete saved inbound: \(error.localizedDescription)")
+                                    }
+                                })
+                                
+                                alert.addAction(okAction)
+                                self.present(alert, animated: true, completion: nil)
                             }
-                            
-                            //Reset data
-                            self.inboundGeneralInfo = nil
-                            self.inboundDriverInfo = nil
-                            
-                            self.imgGeneralInfo.isHidden = true
-                            self.imgDriverInfo.isHidden = true
-                            
-                            self.isGeneralInfoEntered = false
-                            self.isDriverInfoEntered = false
-                            
                         }
                     }
                 }
                 
-                print(json)
+               // print(json)
             }
                 
             catch let error {
@@ -124,42 +203,82 @@ class InboundViewController : UIViewController {
             }
         }
     }
-    
-    @IBAction func button_generalInfoPressed(_ sender: UIButton) {
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "GeneralInfoViewController")as! GeneralInfoViewController
-        vc.inboundDataReceiverVc = self
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
-    
-    func showHideRequiredFieldsLabel() {
-        if isGeneralInfoEntered && isDriverInfoEntered {
-            lblRequiredFields.isHidden = true
-        }
-        else {
-            lblRequiredFields.isHidden = false
-        }
-    }
 }
 
 
 extension InboundViewController: SaveInboundGeneralInfoProtocol {
     func didSaveInboundShipmentGeneralInfo(generalInfo: InboundShipmentGeneralInfo) {
         print("Received general info: \(generalInfo)")
-        inboundGeneralInfo = generalInfo
-        imgGeneralInfo.isHidden = false
-        isGeneralInfoEntered = true
         
-        showHideRequiredFieldsLabel()
+        //Save in core data
+        let inboundShipmentInfo = InboundGeneralInfo(context: MANAGED_OBJECT_CONTEXT)
+        inboundShipmentInfo.bolNumber = generalInfo.bol
+        inboundShipmentInfo.proNumber = generalInfo.proNumber
+        inboundShipmentInfo.carrier = generalInfo.carrier
+        inboundShipmentInfo.employeeName = generalInfo.employeeName
+        inboundShipmentInfo.origin = generalInfo.origin
+        inboundShipmentInfo.ngsLocation = generalInfo.ngsLocation
+        inboundShipmentInfo.latitude = generalInfo.latitude
+        inboundShipmentInfo.longitude = generalInfo.longitude
+        inboundShipmentInfo.stateCode = generalInfo.state
+        
+        if let saved = savedInbound {
+            //If a saved inbound exists, update it's general info
+            saved.generalInfo = inboundShipmentInfo
+        }
+        else {
+            //else create a new instance of SavedInbound and set it's general info
+            savedInbound = SavedInbound(context: MANAGED_OBJECT_CONTEXT)
+            savedInbound?.generalInfo = inboundShipmentInfo
+        }
+        
+        do {
+            try MANAGED_OBJECT_CONTEXT.save()
+            showHideCheckMarkAndLabel()
+        }
+            
+        catch let error {
+            print("Unable to save inbound shipment general info in core data: \(error.localizedDescription)")
+        }
     }
 }
 
 extension InboundViewController: SaveInboundDriverInfoProtocol {
     func didSaveInboundShipmentDriverInfo(driverInfo: InboundShipmentDriverInfo) {
         print("Received driver info: \(driverInfo)")
-        inboundDriverInfo = driverInfo
-        imgDriverInfo.isHidden = false
-        isDriverInfoEntered = true
+        //Save in core data
+        let inboundShipmentDriverInfo = InboundDriverInfo(context: MANAGED_OBJECT_CONTEXT)
+        inboundShipmentDriverInfo.driverName = driverInfo.driverName
+        inboundShipmentDriverInfo.sealNumber = driverInfo.sealNumber
+        inboundShipmentDriverInfo.lockOnTrailer = driverInfo.isLockOnTrailer
         
-        showHideRequiredFieldsLabel()
+        //Need to confirm what will be displayed on the grid/list if user enters driver info before entering general info,
+        
+        //Only save driver info if general info is already available
+        if let inbound = savedInbound {
+            inbound.driverInfo = inboundShipmentDriverInfo
+            
+            do{
+                try MANAGED_OBJECT_CONTEXT.save()
+                showHideCheckMarkAndLabel()
+            }
+            catch let error {
+                print("Unable to save inbound shipment driver info in core data: \(error.localizedDescription)")
+            }
+        }
+            
+        else {
+            
+            //Commented because currently we are not allowing driver info to be entered if general info is missing. This is because on saved inbound grid we are displaying each inbound by it's BOL number and we can not display the bol number unless the general info is entered
+            
+            //If however we need to rollback this change, just uncomment the below two lines, remove the alert code and move the code to save managed object context outside of the upper if block.
+            
+//            savedInbound = SavedInbound(context: MANAGED_OBJECT_CONTEXT)
+//            savedInbound?.driverInfo = inboundShipmentDriverInfo
+            
+            //Show General Info missing alert
+            //showGeneralInfoMissingAlert()
+        }
+        
     }
 }

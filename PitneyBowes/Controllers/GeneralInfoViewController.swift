@@ -23,6 +23,11 @@ class GeneralInfoViewController: UIViewController{
     var arrEmployees = [Employee]()
     var selectedEmployee: Employee?
     
+    var inboundGeneralInfo: InboundGeneralInfo?
+    var outboundGeneralInfo: OutboundGeneralInfo?
+    
+    let type = ApplicationManager.shared.shipmentType
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "General Info Entries"
@@ -35,11 +40,24 @@ class GeneralInfoViewController: UIViewController{
         
         fetchEmployees()
         fetchGeneralInfoEntries()
+        
+        if type == .INBOUND {
+            //If it is a saved inbbound general info, show the info in text fields
+            if let generalInfo = inboundGeneralInfo {
+                //Show the info
+                txtCargo.text = generalInfo.employeeName
+            }
+
+        }
+        else {
+            //If it is a saved outbound general info, show the info in text fields
+            if let generalInfo = outboundGeneralInfo {
+                //Show the info
+                txtCargo.text = generalInfo.employeeName
+            }
+        }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-    }
-   
     @IBAction func selectEmployee(_ sender: UIButton) {
         showHideLocationPicker(isShow: true)
     }
@@ -47,9 +65,9 @@ class GeneralInfoViewController: UIViewController{
         showHideLocationPicker(isShow: false)
     }
     @IBAction func doneEmployeeSelection(_ sender: RoundedBorderButton) {
-        showHideLocationPicker(isShow: false)
         txtCargo.text = selectedEmployee?.Employee?.name
-        navigateToAddGeneralInfoVC()
+        showHideLocationPicker(isShow: false, showNextScreen: true)
+        //navigateToAddGeneralInfoVC()
     }
     
     @objc func add(_ sender: Any){
@@ -61,20 +79,30 @@ class GeneralInfoViewController: UIViewController{
         
         if ApplicationManager.shared.shipmentType == .INBOUND {
             vc.inboundGeneralInfoDelegate = inboundDataReceiverVc!
+            
+            if let info = inboundGeneralInfo {
+                vc.inboundGeneralInfo = info
+            }
         }
             
         else {
             vc.outboundGeneralInfoDelegate = outboundDataReceiverVc!
+            
+            
+            if let info = outboundGeneralInfo {
+                vc.outboundGeneralInfo = info
+            }
         }
         
+        //Pass the selected employee
         if let employeeName = selectedEmployee?.Employee?.name {
             vc.strSelectedEmployeeName = employeeName
         }
         
         self.navigationController?.pushViewController(vc, animated:true)
-
     }
-    func showHideLocationPicker(isShow: Bool) {
+    
+    func showHideLocationPicker(isShow: Bool, showNextScreen: Bool = false) {
         if isShow {
             viewPickerBottomConstraint.constant = 0
             
@@ -86,8 +114,12 @@ class GeneralInfoViewController: UIViewController{
             viewPickerBottomConstraint.constant = -(viewPicker.frame.height)
         }
         
-        UIView.animate(withDuration: 0.5) {
+        UIView.animate(withDuration: 0.5, animations: {
             self.view.layoutIfNeeded()
+        }) { _ in
+            if showNextScreen {
+                self.navigateToAddGeneralInfoVC()
+            }
         }
     }
 
@@ -112,8 +144,8 @@ class GeneralInfoViewController: UIViewController{
                 return
             }
             
-            let json = try! JSONSerialization.jsonObject(with: responseData, options: .allowFragments)
-            print(json)
+            //let json = try! JSONSerialization.jsonObject(with: responseData, options: .allowFragments)
+            //print(json)
             
             //Decode the info and reload table view
             
@@ -153,7 +185,7 @@ class GeneralInfoViewController: UIViewController{
             
             do {
                 let employees = try JSONDecoder().decode(Employees.self, from: responseData)
-                print(employees)
+                //print(employees)
                 guard let arrData = employees.data else {
                     return
                 }

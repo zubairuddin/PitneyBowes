@@ -11,36 +11,64 @@ import CoreData
 
 class DatabaseManager {
 
-//    class func saveLoggedInUserInCoreData(userDetail: UserDetail) {
-//        
-//        let objLoggedInUser = LoggedInUser(context: MANAGED_OBJECT_CONTEXT)
-//        
-//        guard let id = userDetail.id, let emailAddress = userDetail.email else {
-//            return
-//        }
-//        
-//        objLoggedInUser.userId = id
-//        objLoggedInUser.userEmail = emailAddress
-//        
-//        do {
-//            try MANAGED_OBJECT_CONTEXT.save()
-//        }
-//        catch let error {
-//            print("Unable to save: \(error.localizedDescription)")
-//        }
-//    }
-//    
-//    class func getLoggedInUserFromCoreData()-> LoggedInUser? {
-//        let fetchRequest: NSFetchRequest<LoggedInUser> = LoggedInUser.fetchRequest()
-//        
-//        do {
-//             let result = try MANAGED_OBJECT_CONTEXT.fetch(fetchRequest)
-//            let user = result.last
-//            return user
-//        }
-//        catch let error {
-//            print("Unable to fetch: \(error.localizedDescription)")
-//            return nil
-//        }
-//    }
+    class func saveLoggedInUserInCoreData(userDetail: UserDetail) {
+        
+        let objLoggedInUser = LoggedInUser(context: MANAGED_OBJECT_CONTEXT)
+        
+        guard let id = userDetail.id, let emailAddress = userDetail.email else {
+            return
+        }
+        
+        objLoggedInUser.userId = id
+        objLoggedInUser.userEmail = emailAddress
+        
+        do {
+            try MANAGED_OBJECT_CONTEXT.save()
+        }
+        catch let error {
+            print("Unable to save: \(error.localizedDescription)")
+        }
+    }
+    
+    class func getLoggedInUserFromCoreData()-> LoggedInUser? {
+        let fetchRequest: NSFetchRequest<LoggedInUser> = LoggedInUser.fetchRequest()
+        
+        do {
+             let result = try MANAGED_OBJECT_CONTEXT.fetch(fetchRequest)
+            let user = result.last
+            return user
+        }
+        catch let error {
+            print("Unable to fetch: \(error.localizedDescription)")
+            return nil
+        }
+    }
+    
+    class func fetchAllSavedInbound() -> [SavedInbound] {
+        let fetchRequest: NSFetchRequest<SavedInbound> = SavedInbound.fetchRequest()
+        
+        do {
+            let result = try MANAGED_OBJECT_CONTEXT.fetch(fetchRequest)
+            
+            return result
+        }
+        catch let error {
+            print("Unable to fetch inbound: \(error.localizedDescription)")
+            return []
+        }
+    }
+    
+    class func fetchAllSavedOutbound() -> [SavedOutbound] {
+        let fetchRequest: NSFetchRequest<SavedOutbound> = SavedOutbound.fetchRequest()
+        
+        do {
+            let result = try MANAGED_OBJECT_CONTEXT.fetch(fetchRequest)
+            return result
+        }
+            
+        catch let error {
+            print("Unable to fetch outbound: \(error.localizedDescription)")
+            return []
+        }
+    }
 }

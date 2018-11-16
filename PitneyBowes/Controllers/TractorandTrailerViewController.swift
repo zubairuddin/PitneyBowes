@@ -44,6 +44,8 @@ class TractorandTrailerViewController: UIViewController {
     
     var arrSelectedImages = [[String:UIImage]]()
     
+    var tractorAndTrailerInfo: OutboundTractorInfo?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -52,7 +54,54 @@ class TractorandTrailerViewController: UIViewController {
         let saveButton = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(saveTractorAndTrailerInfo))
         navigationItem.rightBarButtonItem = saveButton
         
-        segmentLockOnTrailer.selectedSegmentIndex = 0
+        //If coming from saved outbound screen, show the saved info
+        if let info = tractorAndTrailerInfo {
+            
+            let images = info.images as! [[String:UIImage]]
+            arrSelectedImages = images
+            print(images)
+            
+            //Assign Images
+            for image in images {
+                if let tractorPic = image["tractor_pic"] {
+                    imgTractor.image = tractorPic
+                }
+                if let tractorDotPic = image["tractor_dot_pic"] {
+                    imgTractorDot.image = tractorDotPic
+                }
+                if let tractorPlatePic = image["tractor_plate_pic"] {
+                    imgTractorPlate.image = tractorPlatePic
+                }
+                if let trailerPic = image["trailer_pic"] {
+                    imgTrailer.image = trailerPic
+                }
+                if let otherPic1 = image["other_pic_1"] {
+                    imgOther1.image = otherPic1
+                }
+                if let otherPic2 = image["other_pic_2"] {
+                    imgOther2.image = otherPic2
+                }
+            }
+            
+            //Assign textfields text
+            txtTractorPlate.text = info.tractorPlate
+            txtDotNumber.text = info.tractorDotNumber
+            txtTrailerNumber.text = info.trailerNumber
+            
+            //Assign switch value
+            switch info.lockOnTrailer {
+            case "Yes":
+                segmentLockOnTrailer.selectedSegmentIndex = 0
+            case "No":
+                segmentLockOnTrailer.selectedSegmentIndex = 1
+            case "N/A":
+                segmentLockOnTrailer.selectedSegmentIndex = 2
+            default:
+                break
+            }
+            
+            
+        }
     }
     
     @IBAction func segmentChanged(_ sender: UISegmentedControl) {
@@ -67,7 +116,6 @@ class TractorandTrailerViewController: UIViewController {
         default:
             break
         }
-
     }
     
     @IBAction func selectImageAction(_ sender: UIButton) {

@@ -18,3 +18,12 @@ struct Locations: Decodable {
     let data: [Location]?
 }
 
+struct NgsLocation: Decodable {
+    let location: String?
+    let latitude: String?
+    let longitude: String?
+}
+
+struct AllNgsLocations: Decodable {
+    let data: [NgsLocation]?
+}

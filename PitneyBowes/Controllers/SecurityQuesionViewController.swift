@@ -14,7 +14,7 @@ struct OutboundShipmentQuestionaireInfo {
     let carryPassengers: Bool
     let acknowledgeReceipt: Bool
     let alertContact: Bool
-    let signature: [String:UIImage]?
+    let signature: [String:UIImage]
 }
 
 protocol SaveOutboundQuestionaireProtocol {
@@ -27,7 +27,13 @@ class SecurityQuesionViewController: UIViewController {
     @IBOutlet weak var viewDrawSignature: YPDrawSignatureView!
     @IBOutlet weak var lblSignature: UILabel!
     
+    @IBOutlet weak var switchDoNotDiscuss: UISwitch!
+    @IBOutlet weak var switchPassengers: UISwitch!
+    @IBOutlet weak var switchReceipt: UISwitch!
+    @IBOutlet weak var switchAlertContact: UISwitch!
     var outboundQuestionaireDelegate: SaveOutboundQuestionaireProtocol?
+    
+    var questionnaireInfo: OutboundQuestionnaireInfo?
     
     var isDiscussShipment = false
     var isCarryPassengers = false
@@ -46,6 +52,15 @@ class SecurityQuesionViewController: UIViewController {
         viewDrawSignature.layer.borderColor = btnClearSignature.currentTitleColor.cgColor
         viewDrawSignature.layer.borderWidth = 2
         viewDrawSignature.layer.masksToBounds = true
+        
+        //Show saved selection
+        if let info = questionnaireInfo {
+            switchDoNotDiscuss.isOn = info.discussShipment
+            switchPassengers.isOn = info.carryPassengers
+            switchReceipt.isOn = info.receiptAcknowledge
+            switchAlertContact.isOn = info.alertContact
+            btnClearSignature.isHidden = false
+        }
     }
 
     @IBAction func answerSelected(_ sender: UISwitch) {
