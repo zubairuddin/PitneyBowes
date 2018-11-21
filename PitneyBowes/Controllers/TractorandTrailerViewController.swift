@@ -27,7 +27,6 @@ class TractorandTrailerViewController: UIViewController {
         case tractorDot, other1, tractorPlate, trailer, other2
     }
     
-    @IBOutlet weak var segmentLockOnTrailer: UISegmentedControl!
     @IBOutlet weak var txtTrailerNumber: UITextField!
     @IBOutlet weak var txtDotNumber: UITextField!
     @IBOutlet weak var txtTractorPlate: UITextField!
@@ -39,7 +38,7 @@ class TractorandTrailerViewController: UIViewController {
     @IBOutlet weak var imgOther2: UIImageView!
     
     var selectedType: ImageType?
-    var strLock = "Yes"
+    var strLock = ""
     var outboundTractorInfoDelegate: SaveOutboundTractorAndTrailerInfoProtocol?
     
     var arrSelectedImages = [[String:UIImage]]()
@@ -87,34 +86,7 @@ class TractorandTrailerViewController: UIViewController {
             txtTractorPlate.text = info.tractorPlate
             txtDotNumber.text = info.tractorDotNumber
             txtTrailerNumber.text = info.trailerNumber
-            
-            //Assign switch value
-            switch info.lockOnTrailer {
-            case "Yes":
-                segmentLockOnTrailer.selectedSegmentIndex = 0
-            case "No":
-                segmentLockOnTrailer.selectedSegmentIndex = 1
-            case "N/A":
-                segmentLockOnTrailer.selectedSegmentIndex = 2
-            default:
-                break
-            }
-            
-            
-        }
-    }
-    
-    @IBAction func segmentChanged(_ sender: UISegmentedControl) {
-        switch sender.selectedSegmentIndex {
-        case 0:
-            strLock = "Yes"
-        case 1:
-            strLock = "No"
-        case 2:
-            strLock = "N/A"
-            
-        default:
-            break
+
         }
     }
     

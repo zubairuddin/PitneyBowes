@@ -1264,13 +1264,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tractor Plate" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hdH-Cf-Cgt">
-                                <rect key="frame" x="50" y="70" width="205" height="20.5"/>
+                                <rect key="frame" x="50" y="70" width="160" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cRp-rG-3ef">
-                                <rect key="frame" x="305" y="65.5" width="443" height="30"/>
+                                <rect key="frame" x="260" y="65.5" width="488" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="no" returnKeyType="next"/>
@@ -1279,7 +1279,7 @@
                                 </connections>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="91q-CC-pSZ">
-                                <rect key="frame" x="305" y="111" width="443" height="30"/>
+                                <rect key="frame" x="260" y="111" width="488" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="no" returnKeyType="next"/>
@@ -1288,7 +1288,7 @@
                                 </connections>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Wmc-kw-nvV">
-                                <rect key="frame" x="305" y="156" width="443" height="30"/>
+                                <rect key="frame" x="260" y="156" width="488" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="no" returnKeyType="done"/>
@@ -1297,25 +1297,19 @@
                                 </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tractor DOT Number" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Hr-zM-13L">
-                                <rect key="frame" x="50" y="115.5" width="205" height="20.5"/>
+                                <rect key="frame" x="50" y="115.5" width="160" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trailer Number" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U98-xc-GGJ">
-                                <rect key="frame" x="50" y="161" width="205" height="19.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Is there a lock on the trailer?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x6l-zQ-cBY">
-                                <rect key="frame" x="50" y="205.5" width="205.5" height="19.5"/>
+                                <rect key="frame" x="50" y="161" width="160" height="19.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="lrd-VT-mKl" userLabel="Stack View 1">
-                                <rect key="frame" x="134" y="279.5" width="500" height="180"/>
+                                <rect key="frame" x="134" y="236" width="500" height="180"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZR7-Oj-YGb" userLabel="Outer View1">
                                         <rect key="frame" x="0.0" y="0.0" width="133.5" height="180"/>
@@ -1468,7 +1462,7 @@
                                 </constraints>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="TYB-6G-doq" userLabel="Stack View 2">
-                                <rect key="frame" x="134" y="492.5" width="500" height="180"/>
+                                <rect key="frame" x="134" y="449" width="500" height="180"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="107-RE-fNL" userLabel="Outer View1">
                                         <rect key="frame" x="0.0" y="0.0" width="133.5" height="180"/>
@@ -1619,42 +1613,25 @@
                                     <constraint firstAttribute="height" constant="180" id="l1Q-x5-frj"/>
                                 </constraints>
                             </stackView>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="J03-QZ-PZX">
-                                <rect key="frame" x="305" y="201.5" width="443" height="29"/>
-                                <segments>
-                                    <segment title="Yes"/>
-                                    <segment title="No"/>
-                                    <segment title="N/A"/>
-                                </segments>
-                                <connections>
-                                    <action selector="segmentChanged:" destination="edf-9h-GWc" eventType="valueChanged" id="wa5-dr-Qkd"/>
-                                </connections>
-                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Wmc-kw-nvV" firstAttribute="leading" secondItem="U98-xc-GGJ" secondAttribute="trailing" constant="50" id="0l9-S2-4hG"/>
                             <constraint firstItem="Wmc-kw-nvV" firstAttribute="leading" secondItem="91q-CC-pSZ" secondAttribute="leading" id="6R6-wK-PnE"/>
                             <constraint firstItem="91q-CC-pSZ" firstAttribute="trailing" secondItem="cRp-rG-3ef" secondAttribute="trailing" id="7FP-3Z-G21"/>
-                            <constraint firstItem="x6l-zQ-cBY" firstAttribute="leading" secondItem="U98-xc-GGJ" secondAttribute="leading" id="BnX-Bg-jd7"/>
                             <constraint firstItem="TYB-6G-doq" firstAttribute="leading" secondItem="lrd-VT-mKl" secondAttribute="leading" id="CqU-if-aIj"/>
                             <constraint firstItem="lrd-VT-mKl" firstAttribute="centerX" secondItem="rwh-Gp-ztF" secondAttribute="centerX" id="FaK-ki-P8e"/>
                             <constraint firstItem="0Hr-zM-13L" firstAttribute="top" secondItem="hdH-Cf-Cgt" secondAttribute="bottom" constant="25" id="JCy-8R-RJa"/>
                             <constraint firstItem="hdH-Cf-Cgt" firstAttribute="leading" secondItem="EAO-Oy-rCz" secondAttribute="leading" constant="50" id="Llt-s3-o8m"/>
-                            <constraint firstItem="J03-QZ-PZX" firstAttribute="centerY" secondItem="x6l-zQ-cBY" secondAttribute="centerY" id="OPO-Yb-Kb0"/>
                             <constraint firstItem="Wmc-kw-nvV" firstAttribute="trailing" secondItem="91q-CC-pSZ" secondAttribute="trailing" id="PbE-aN-8gX"/>
                             <constraint firstItem="TYB-6G-doq" firstAttribute="height" secondItem="lrd-VT-mKl" secondAttribute="height" id="SJ1-XT-ew6"/>
-                            <constraint firstItem="lrd-VT-mKl" firstAttribute="top" secondItem="J03-QZ-PZX" secondAttribute="bottom" constant="50" id="TCh-MX-fGM"/>
-                            <constraint firstItem="x6l-zQ-cBY" firstAttribute="top" secondItem="U98-xc-GGJ" secondAttribute="bottom" constant="25" id="TKB-T9-0pJ"/>
                             <constraint firstItem="cRp-rG-3ef" firstAttribute="centerY" secondItem="hdH-Cf-Cgt" secondAttribute="centerY" id="WCl-7o-MT1"/>
-                            <constraint firstItem="J03-QZ-PZX" firstAttribute="leading" secondItem="x6l-zQ-cBY" secondAttribute="trailing" constant="49.5" id="WVT-dP-oEN"/>
                             <constraint firstItem="U98-xc-GGJ" firstAttribute="leading" secondItem="0Hr-zM-13L" secondAttribute="leading" id="Wkq-hM-a0G"/>
                             <constraint firstItem="0Hr-zM-13L" firstAttribute="leading" secondItem="hdH-Cf-Cgt" secondAttribute="leading" id="XWA-Op-3cQ"/>
                             <constraint firstItem="TYB-6G-doq" firstAttribute="top" secondItem="lrd-VT-mKl" secondAttribute="bottom" constant="33" id="ZlO-Es-UYW"/>
                             <constraint firstItem="cRp-rG-3ef" firstAttribute="leading" secondItem="hdH-Cf-Cgt" secondAttribute="trailing" constant="50" id="e56-1Q-8TF"/>
                             <constraint firstItem="91q-CC-pSZ" firstAttribute="centerY" secondItem="0Hr-zM-13L" secondAttribute="centerY" id="ff1-A1-UH2"/>
-                            <constraint firstItem="J03-QZ-PZX" firstAttribute="leading" secondItem="Wmc-kw-nvV" secondAttribute="leading" id="gse-1v-kzO"/>
-                            <constraint firstItem="J03-QZ-PZX" firstAttribute="trailing" secondItem="Wmc-kw-nvV" secondAttribute="trailing" id="hrv-80-KdH"/>
+                            <constraint firstItem="lrd-VT-mKl" firstAttribute="top" secondItem="Wmc-kw-nvV" secondAttribute="bottom" constant="50" id="gXc-V5-mkN"/>
                             <constraint firstItem="TYB-6G-doq" firstAttribute="trailing" secondItem="lrd-VT-mKl" secondAttribute="trailing" id="izT-e4-eSQ"/>
                             <constraint firstItem="hdH-Cf-Cgt" firstAttribute="top" secondItem="EAO-Oy-rCz" secondAttribute="top" constant="50" id="kaR-uD-h1v"/>
                             <constraint firstItem="EAO-Oy-rCz" firstAttribute="trailing" secondItem="cRp-rG-3ef" secondAttribute="trailing" constant="20" id="m7c-Ns-e3g"/>
@@ -1673,7 +1650,6 @@
                         <outlet property="imgTractorDot" destination="KuR-bM-bAI" id="stx-mK-luP"/>
                         <outlet property="imgTractorPlate" destination="SrI-mV-OvL" id="BtN-QM-jHI"/>
                         <outlet property="imgTrailer" destination="iq2-ky-an3" id="X3p-gp-Cmx"/>
-                        <outlet property="segmentLockOnTrailer" destination="J03-QZ-PZX" id="cQc-Yl-oIV"/>
                         <outlet property="txtDotNumber" destination="91q-CC-pSZ" id="Uti-7v-hnP"/>
                         <outlet property="txtTractorPlate" destination="cRp-rG-3ef" id="hIw-ge-N6k"/>
                         <outlet property="txtTrailerNumber" destination="Wmc-kw-nvV" id="rcO-g6-hVi"/>

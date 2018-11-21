@@ -58,12 +58,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PitneyBowes/Controllers/AddGeneralInfoViewController.swift"
-            timestampString = "563996523.395702"
+            timestampString = "564119726.9389319"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "492"
-            endingLineNumber = "492"
-            landmarkName = "startScan()"
+            startingLineNumber = "549"
+            endingLineNumber = "549"
+            landmarkName = "callGetNgsLocationsAPI()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -74,12 +74,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PitneyBowes/Controllers/AddGeneralInfoViewController.swift"
-            timestampString = "563996523.395872"
+            timestampString = "564119726.9390301"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "617"
-            endingLineNumber = "617"
-            landmarkName = "pickerView(_:numberOfRowsInComponent:)"
+            startingLineNumber = "676"
+            endingLineNumber = "676"
+            landmarkName = "stopScan()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -90,13 +90,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PitneyBowes/Controllers/AddGeneralInfoViewController.swift"
-            timestampString = "563996523.395961"
+            timestampString = "564119726.939083"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "304"
-            endingLineNumber = "304"
-            landmarkName = "saveGeneralInfoForInboundShipment()"
-            landmarkType = "7">
+            startingLineNumber = "361"
+            endingLineNumber = "361"
+            landmarkName = "AddGeneralInfoViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -106,7 +106,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PitneyBowes/Controllers/InboundViewController.swift"
-            timestampString = "563996523.396044"
+            timestampString = "564423010.3821"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "214"

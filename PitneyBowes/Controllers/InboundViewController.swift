@@ -138,7 +138,7 @@ class InboundViewController : UIViewController {
         SVProgressHUD.show(withStatus: "Submitting...")
         SVProgressHUD.setDefaultMaskType(.black)
         
-        APIManager.executeRequest(appendingPath: "shipments/add", withQueryString: "user_id=\(userId)&bol=\(generalInfo.bolNumber)&pro_number=\(generalInfo.proNumber)&carries=\(generalInfo.carrier)&ngs_location=\(generalInfo.ngsLocation)&latitude=\(generalInfo.latitude)&longitude=\(generalInfo.longitude)&origin=\(generalInfo.origin)&state_code=\(generalInfo.stateCode)&employee_name=\(generalInfo.employeeName)&driver_name=\(driverInfo.driverName)&seal_number=\(driverInfo.sealNumber)&lock_on_trailer=\(driverInfo.lockOnTrailer)", httpMethod: "POST") { (data, error) in
+        APIManager.executeRequest(appendingPath: "shipments/add", withQueryString: "user_id=\(userId)&bol=\(generalInfo.bolNumber)&pro_number=\(generalInfo.proNumber)&carrier=\(generalInfo.carrier)&ngs_location=\(generalInfo.ngsLocation)&latitude=\(generalInfo.latitude)&longitude=\(generalInfo.longitude)&origin=\(generalInfo.origin)&state_code=\(generalInfo.stateCode)&employee_name=\(generalInfo.employeeName)&driver_name=\(driverInfo.driverName)&seal_number=\(driverInfo.sealNumber)&lock_on_trailer=\(driverInfo.lockOnTrailer)", httpMethod: "POST") { (data, error) in
             
             if error != nil {
                 print("Error while adding inbound shipment : \(error!.localizedDescription)")

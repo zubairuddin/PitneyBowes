@@ -166,12 +166,69 @@ class AddGeneralInfoViewController: UIViewController {
         //Hide seal number for both inbound and outbound
         showHideSealInfo(isHide: true)
         
+        //Add gesture recognizer to dismiss keyboard when tapped outside
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        gestureRecognizer.numberOfTapsRequired = 1
+        view.addGestureRecognizer(gestureRecognizer)
+
+        
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(true)
         //AppUtility.lockOrientation(.all)
     }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    
+    func updatePreviewLayer(layer: AVCaptureConnection, orientation: AVCaptureVideoOrientation) {
+        layer.videoOrientation = orientation
+        //videoPreviewLayer?.frame = self.viewScanner.bounds
+    }
+    
+    func setOrientation() {
+        
+        if let connection =  videoPreviewLayer?.connection  {
+            
+            let currentDevice: UIDevice = UIDevice.current
+            
+            let orientation: UIDeviceOrientation = currentDevice.orientation
+            
+            let previewLayerConnection : AVCaptureConnection = connection
+            
+            if previewLayerConnection.isVideoOrientationSupported {
+                
+                switch (orientation) {
+                case .portrait: updatePreviewLayer(layer: previewLayerConnection, orientation: .portrait)
+                    
+                case .landscapeRight: updatePreviewLayer(layer: previewLayerConnection, orientation: .landscapeLeft)
+                    
+                case .landscapeLeft: updatePreviewLayer(layer: previewLayerConnection, orientation: .landscapeRight)
+                    
+                case .portraitUpsideDown: updatePreviewLayer(layer: previewLayerConnection, orientation: .portraitUpsideDown)
+                    
+                default: updatePreviewLayer(layer: previewLayerConnection, orientation: .portrait)
+                    
+                }
+            }
+        }
+            
+        else {
+            print("Orientation not supported.")
+        }
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        //setOrientation()
+        
+        if session != nil {
+            stopScan()
+            startScan()
+        }
+    }
+    
     @IBAction func scanTapped(_ sender: RoundedBorderButton) {
         //view.endEditing(true)
         
@@ -525,6 +582,8 @@ extension AddGeneralInfoViewController {
             
             videoPreviewLayer?.isHidden = false
             viewScanner.layer.addSublayer(videoPreviewLayer!)
+            
+            setOrientation()
             
             //Red line view
             redLineView = UIView()
