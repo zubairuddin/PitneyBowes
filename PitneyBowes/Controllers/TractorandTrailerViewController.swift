@@ -164,6 +164,10 @@ class TractorandTrailerViewController: UIViewController {
         else if (txtTrailerNumber.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)! {
             return .invalid("Trailer number can't be empty.")
         }
+        else if imgTractor.image == nil || imgTrailer.image == nil || imgTractorDot.image == nil || imgTractorPlate.image == nil {
+            return .invalid("Please select all required images")
+        }
+
 
         return.valid
     }

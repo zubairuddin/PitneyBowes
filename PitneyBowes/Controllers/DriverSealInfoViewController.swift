@@ -39,7 +39,10 @@ protocol SaveOutboundDriverInfoProtocol {
 class DriverSeallnfoViewController: UIViewController {
 
     @IBOutlet weak var viewCDLHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var viewDatePickerBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var viewCDL: UIView!
+    @IBOutlet weak var viewDatePicker: UIView!
+    @IBOutlet weak var pickerExpirationDate: UIDatePicker!
     @IBOutlet weak var txtDriverName: UITextField!
     @IBOutlet weak var txtSealNumber: UITextField!
     @IBOutlet weak var segmentIsLock: UISegmentedControl!
@@ -51,6 +54,8 @@ class DriverSeallnfoViewController: UIViewController {
     @IBOutlet weak var imgPhotoId: UIImageView!
     @IBOutlet weak var imgOther: UIImageView!
     
+    @IBOutlet weak var viewStack1: UIStackView!
+    @IBOutlet weak var viewStack2: UIStackView!
     var selectedImageType: ImageType?
     
     var strIsLock = "Yes"
@@ -91,6 +96,10 @@ class DriverSeallnfoViewController: UIViewController {
             //Hide CDL View
             viewCDL.isHidden = true
             viewCDLHeightConstraint.constant = 0
+            
+            //Hide stack views
+            viewStack1.isHidden = true
+            viewStack2.isHidden = true
         }
         else {
             //If driver info is available from saved shipment, show it on text fields
@@ -112,16 +121,16 @@ class DriverSeallnfoViewController: UIViewController {
                 arrSelectedImages = images
                 
                 for image in images {
-                    if let driver1 = image[""] {
+                    if let driver1 = image["driver_1"] {
                         imgDriver1.image = driver1
                     }
-                    if let driver2 = image[""] {
+                    if let driver2 = image["driver_2"] {
                         imgDriver2.image = driver2
                     }
-                    if let photoId = image[""] {
+                    if let photoId = image["photo_id"] {
                         imgPhotoId.image = photoId
                     }
-                    if let other = image[""] {
+                    if let other = image["other"] {
                         imgOther.image = other
                     }
                 }
@@ -129,11 +138,16 @@ class DriverSeallnfoViewController: UIViewController {
                 //CDL Number and expiration date
                 txtCDLNumber.text = info.cdlNumber
                 txtCDLExpirationDate.text = info.expirationDate
+                
             }
             
             //Show CDL View
             viewCDL.isHidden = false
             viewCDLHeightConstraint.constant = 90
+            
+            //Show stack views
+            viewStack1.isHidden = false
+            viewStack2.isHidden = false
 
         }
     }
@@ -175,7 +189,18 @@ class DriverSeallnfoViewController: UIViewController {
     }
     
     @IBAction func selectExpirationDate(_ sender: UIButton) {
-        //TODO: Show Date Picker
+        showHideDatePicker(isShow: true)
+    }
+    
+    @IBAction func cancelDateSelection(_ sender: RoundedBorderButton) {
+        showHideDatePicker(isShow: false)
+    }
+    @IBAction func doneDateSelection(_ sender: RoundedBorderButton) {
+        showHideDatePicker(isShow: false)
+    }
+    
+    @IBAction func dateChanged(_ sender: UIDatePicker) {
+        txtCDLExpirationDate.text = sender.date.toStringDate()
     }
     
     @IBAction func segmentChanged(_ sender: UISegmentedControl) {
@@ -258,14 +283,38 @@ class DriverSeallnfoViewController: UIViewController {
 
     }
     func validateInput() ->ValidateData {
-        if (txtDriverName.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)! {
-            return .invalid("Please enter driver name.")
-        }
-        else if (txtSealNumber.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)! {
-            return .invalid("Please enter seal number or select No Seal if it is not applicable.")
-        }
         
-        return.valid
+        if ApplicationManager.shared.shipmentType == .INBOUND {
+            if (txtDriverName.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)! {
+                return .invalid("Please enter driver name.")
+            }
+            else if (txtSealNumber.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)! {
+                return .invalid("Please enter seal number or select No Seal if it is not applicable.")
+            }
+            
+            return.valid
+
+        }
+        else {
+            if (txtDriverName.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)! {
+                return .invalid("Please enter driver name.")
+            }
+            else if (txtSealNumber.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)! {
+                return .invalid("Please enter seal number or select No Seal if it is not applicable.")
+            }
+            else if (txtCDLNumber.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)! {
+                return .invalid("Please enter CDL number..")
+            }
+            else if (txtCDLExpirationDate.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)! {
+                return .invalid("Please enter CDL Expiration date.")
+            }
+            else if imgDriver1.image == nil {
+                return .invalid("Please select Driver Image.")
+            }
+    
+            return.valid
+
+        }
     }
     func popToInboundVC() {
         for vc in navigationController!.viewControllers {
@@ -279,6 +328,19 @@ class DriverSeallnfoViewController: UIViewController {
             if vc is OutBoundViewController {
                 navigationController?.popToViewController(vc, animated: true)
             }
+        }
+    }
+    func showHideDatePicker(isShow: Bool) {
+        if isShow {
+            
+            viewDatePickerBottomConstraint.constant = 0
+        }
+        else {
+            viewDatePickerBottomConstraint.constant = -(viewDatePicker.frame.height)
+        }
+        
+        UIView.animate(withDuration: 0.5) {
+            self.view.layoutIfNeeded()
         }
     }
 }

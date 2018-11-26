@@ -56,6 +56,8 @@
 		E06075C4217CF19B006E5937 /* pb-new-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = E06075C3217CF19B006E5937 /* pb-new-logo.png */; };
 		E06075C6217CF58F006E5937 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E06075C5217CF58F006E5937 /* LoginViewController.swift */; };
 		F9116B1721831BE700C4173B /* Employee.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9116B1621831BE700C4173B /* Employee.swift */; };
+		F911D91621ABCCE300A580FE /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = F911D91221ABCCE200A580FE /* UIScrollView+TPKeyboardAvoidingAdditions.m */; };
+		F911D91721ABCCE300A580FE /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = F911D91521ABCCE300A580FE /* TPKeyboardAvoidingScrollView.m */; };
 		F912FEEB218054BD00FBA36D /* PitneyBowes.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F912FEE9218054BD00FBA36D /* PitneyBowes.xcdatamodeld */; };
 		F912FEEF2180555300FBA36D /* LoggedInUser+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F912FEED2180555300FBA36D /* LoggedInUser+CoreDataClass.swift */; };
 		F912FEF02180555300FBA36D /* LoggedInUser+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F912FEEE2180555300FBA36D /* LoggedInUser+CoreDataProperties.swift */; };
@@ -118,6 +120,11 @@
 		E06075C5217CF58F006E5937 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		F29CB659545EC94C0B8215CA /* Pods-PitneyBowes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PitneyBowes.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PitneyBowes/Pods-PitneyBowes.debug.xcconfig"; sourceTree = "<group>"; };
 		F9116B1621831BE700C4173B /* Employee.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Employee.swift; sourceTree = "<group>"; };
+		F911D90E21ABCC4000A580FE /* PitneyBowes-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PitneyBowes-Bridging-Header.h"; sourceTree = "<group>"; };
+		F911D91221ABCCE200A580FE /* UIScrollView+TPKeyboardAvoidingAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+TPKeyboardAvoidingAdditions.m"; sourceTree = "<group>"; };
+		F911D91321ABCCE300A580FE /* TPKeyboardAvoidingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingScrollView.h; sourceTree = "<group>"; };
+		F911D91421ABCCE300A580FE /* UIScrollView+TPKeyboardAvoidingAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+TPKeyboardAvoidingAdditions.h"; sourceTree = "<group>"; };
+		F911D91521ABCCE300A580FE /* TPKeyboardAvoidingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingScrollView.m; sourceTree = "<group>"; };
 		F912FEEA218054BD00FBA36D /* PitneyBowes.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PitneyBowes.xcdatamodel; sourceTree = "<group>"; };
 		F912FEED2180555300FBA36D /* LoggedInUser+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LoggedInUser+CoreDataClass.swift"; sourceTree = "<group>"; };
 		F912FEEE2180555300FBA36D /* LoggedInUser+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LoggedInUser+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -172,6 +179,7 @@
 				3D261E04217F8B9900FB4D13 /* Logo */,
 				3D261E03217F8AE800FB4D13 /* App Delegate */,
 				3D261E02217F8ADB00FB4D13 /* Controllers */,
+				F911D90D21ABCC1C00A580FE /* Resources */,
 				04F42A5F217075C1004EA8E8 /* Main.storyboard */,
 				04F42A62217075C2004EA8E8 /* Assets.xcassets */,
 				04F42A64217075C2004EA8E8 /* LaunchScreen.storyboard */,
@@ -298,6 +306,18 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		F911D90D21ABCC1C00A580FE /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				F911D91321ABCCE300A580FE /* TPKeyboardAvoidingScrollView.h */,
+				F911D91521ABCCE300A580FE /* TPKeyboardAvoidingScrollView.m */,
+				F911D91421ABCCE300A580FE /* UIScrollView+TPKeyboardAvoidingAdditions.h */,
+				F911D91221ABCCE200A580FE /* UIScrollView+TPKeyboardAvoidingAdditions.m */,
+				F911D90E21ABCC4000A580FE /* PitneyBowes-Bridging-Header.h */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		F912FEEC218054E000FBA36D /* Core Data Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -373,6 +393,7 @@
 				TargetAttributes = {
 					04F42A57217075C1004EA8E8 = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -488,6 +509,7 @@
 				3D261E07217F8BB100FB4D13 /* APIManager.swift in Sources */,
 				F912FEEB218054BD00FBA36D /* PitneyBowes.xcdatamodeld in Sources */,
 				F912FF012180A83C00FBA36D /* Shipment.swift in Sources */,
+				F911D91621ABCCE300A580FE /* UIScrollView+TPKeyboardAvoidingAdditions.m in Sources */,
 				3DEDB70E2192C9CD00FDF4AB /* InboundGeneralInfo+CoreDataProperties.swift in Sources */,
 				3D462DA421A91BFD00822FB6 /* InboundGeneralInfoViewController.swift in Sources */,
 				04F42A8A21707B69004EA8E8 /* GeneralInfoViewController.swift in Sources */,
@@ -497,6 +519,7 @@
 				3DEDB7142192CBB000FDF4AB /* InboundDriverInfo+CoreDataProperties.swift in Sources */,
 				0453452A2178D49D00277826 /* InboundViewController.swift in Sources */,
 				3D572F5721934CF5003FCF0F /* OutboundGeneralInfo+CoreDataProperties.swift in Sources */,
+				F911D91721ABCCE300A580FE /* TPKeyboardAvoidingScrollView.m in Sources */,
 				F912FEF02180555300FBA36D /* LoggedInUser+CoreDataProperties.swift in Sources */,
 				043EFC9E2174D7F2003C86CB /* OutBoundViewController.swift in Sources */,
 				3D261E1021800E3E00FB4D13 /* Extensions.swift in Sources */,
@@ -642,6 +665,7 @@
 			baseConfigurationReference = F29CB659545EC94C0B8215CA /* Pods-PitneyBowes.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 39DDS7649B;
 				INFOPLIST_FILE = PitneyBowes/Info.plist;
@@ -649,6 +673,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = mac.ConstantIpadView;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "PitneyBowes/Resources/PitneyBowes-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -659,6 +685,7 @@
 			baseConfigurationReference = 0617555E14A220D8C5C478F7 /* Pods-PitneyBowes.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 39DDS7649B;
 				INFOPLIST_FILE = PitneyBowes/Info.plist;
@@ -666,6 +693,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = mac.ConstantIpadView;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "PitneyBowes/Resources/PitneyBowes-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
