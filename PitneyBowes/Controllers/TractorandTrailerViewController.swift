@@ -12,6 +12,7 @@ struct OutboundShipmentTractorInfo {
     let trailerNumber: String
     let tractorDotNumber: String
     let tractorPlate: String
+    let trailerPlateAndState: String
     let lockOnTrailer: String
     let tractorAndTrailerImages : [[String:UIImage]]
 }
@@ -36,6 +37,7 @@ class TractorandTrailerViewController: UIViewController {
     @IBOutlet weak var imgTractorPlate: UIImageView!
     @IBOutlet weak var imgTrailer: UIImageView!
     @IBOutlet weak var imgOther2: UIImageView!
+    @IBOutlet weak var txtTrailerPlate: UITextField!
     
     var selectedType: ImageType?
     var strLock = ""
@@ -169,9 +171,11 @@ class TractorandTrailerViewController: UIViewController {
     func saveInfo() {
         let trailerNumber = txtTrailerNumber.text!
         let dotNumber = txtDotNumber.text!
-        let plate = txtTractorPlate.text!
+        let tractorPlate = txtTractorPlate.text!
+        let trailerPlateAndState = txtTrailerPlate.text!
         
-        let info = OutboundShipmentTractorInfo(trailerNumber: trailerNumber, tractorDotNumber: dotNumber, tractorPlate: plate, lockOnTrailer: strLock, tractorAndTrailerImages: arrSelectedImages)
+        
+        let info = OutboundShipmentTractorInfo(trailerNumber: trailerNumber, tractorDotNumber: dotNumber, tractorPlate: tractorPlate, trailerPlateAndState: trailerPlateAndState, lockOnTrailer: strLock, tractorAndTrailerImages: arrSelectedImages)
         
         outboundTractorInfoDelegate?.didSaveTractorAndTrailerInfo(tractorAndTrailerInfo: info)
         navigationController?.popViewController(animated: true)

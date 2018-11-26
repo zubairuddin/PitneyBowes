@@ -6,14 +6,14 @@
         <attribute name="sealNumber" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="InboundGeneralInfo" representedClassName=".InboundGeneralInfo" syncable="YES">
-        <attribute name="bolNumber" attributeType="String" syncable="YES"/>
+        <attribute name="bolAndProdetails" attributeType="Transformable" syncable="YES"/>
+        <attribute name="brokeredBy" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="carrier" attributeType="String" syncable="YES"/>
         <attribute name="employeeName" attributeType="String" syncable="YES"/>
-        <attribute name="latitude" attributeType="String" syncable="YES"/>
-        <attribute name="longitude" attributeType="String" syncable="YES"/>
+        <attribute name="isShipmentBrokered" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="latitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="ngsLocation" attributeType="String" syncable="YES"/>
-        <attribute name="origin" attributeType="String" syncable="YES"/>
-        <attribute name="proNumber" attributeType="String" syncable="YES"/>
         <attribute name="stateCode" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="LoggedInUser" representedClassName=".LoggedInUser" syncable="YES">
@@ -21,7 +21,10 @@
         <attribute name="userId" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="OutboundDriverInfo" representedClassName=".OutboundDriverInfo" syncable="YES">
+        <attribute name="cdlNumber" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="driverName" attributeType="String" syncable="YES"/>
+        <attribute name="expirationDate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="images" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="lockOnTrailer" attributeType="String" syncable="YES"/>
         <attribute name="sealNumber" attributeType="String" syncable="YES"/>
     </entity>
@@ -50,6 +53,7 @@
         <attribute name="tractorDotNumber" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="tractorPlate" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="trailerNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="trailerPlateState" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="SavedInbound" representedClassName=".SavedInbound" syncable="YES">
         <relationship name="driverInfo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="InboundDriverInfo" syncable="YES"/>
@@ -65,10 +69,10 @@
         <element name="InboundDriverInfo" positionX="-18" positionY="108" width="128" height="90"/>
         <element name="InboundGeneralInfo" positionX="-63" positionY="0" width="128" height="180"/>
         <element name="LoggedInUser" positionX="-63" positionY="-18" width="128" height="75"/>
-        <element name="OutboundDriverInfo" positionX="-9" positionY="126" width="128" height="90"/>
+        <element name="OutboundDriverInfo" positionX="-9" positionY="126" width="128" height="135"/>
         <element name="OutboundGeneralInfo" positionX="0" positionY="135" width="128" height="195"/>
         <element name="OutboundQuestionnaireInfo" positionX="-9" positionY="72" width="128" height="120"/>
-        <element name="OutboundTractorInfo" positionX="36" positionY="126" width="128" height="120"/>
+        <element name="OutboundTractorInfo" positionX="36" positionY="126" width="128" height="135"/>
         <element name="SavedInbound" positionX="-36" positionY="99" width="128" height="75"/>
         <element name="SavedOutbound" positionX="-54" positionY="9" width="128" height="105"/>
     </elements>

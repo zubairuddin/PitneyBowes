@@ -125,6 +125,7 @@ class InboundViewController : UIViewController {
     }
     
     @IBAction func submitInboundShipment(_ sender: UIButton) {
+        
         guard let generalInfo = savedInbound?.generalInfo, let driverInfo = savedInbound?.driverInfo else {
             presentAlert(withTitle: "Required Info Missing.", message: "")
             return
@@ -138,38 +139,59 @@ class InboundViewController : UIViewController {
         SVProgressHUD.show(withStatus: "Submitting...")
         SVProgressHUD.setDefaultMaskType(.black)
         
-        APIManager.executeRequest(appendingPath: "shipments/add", withQueryString: "user_id=\(userId)&bol=\(generalInfo.bolNumber)&pro_number=\(generalInfo.proNumber)&carrier=\(generalInfo.carrier)&ngs_location=\(generalInfo.ngsLocation)&latitude=\(generalInfo.latitude)&longitude=\(generalInfo.longitude)&origin=\(generalInfo.origin)&state_code=\(generalInfo.stateCode)&employee_name=\(generalInfo.employeeName)&driver_name=\(driverInfo.driverName)&seal_number=\(driverInfo.sealNumber)&lock_on_trailer=\(driverInfo.lockOnTrailer)", httpMethod: "POST") { (data, error) in
+        //Get the bol, pro, and origin array
+        let bolProdetails = generalInfo.bolAndProdetails as! [BolProOrigin]
+        
+        //Get the first object of each of them to save in mandatory fields
+        let firstBol = bolProdetails[0].bol
+        let firstPro = bolProdetails[0].proNumber
+        let firstOrigin = bolProdetails[0].origin
+        
+        print("\(firstBol) \(firstPro) \(firstOrigin)")
+
+        //TODO: Remove extra entry for optional param
+        var strOptionalParams = ""
+        for i in 1..<bolProdetails.count {
+            let optionalIndex = "optional[\(i)]"
+            strOptionalParams += "\(optionalIndex)[bol]=\(bolProdetails[i].bol ?? "")&\(optionalIndex)[pro_number]=\(bolProdetails[i].proNumber ?? "")&\(optionalIndex)[origin]=\(bolProdetails[i].origin ?? "")"
             
+            if i < bolProdetails.count - 1 {
+                strOptionalParams += "&"
+            }
+        }
+        
+        APIManager.executeRequest(appendingPath: "shipments/add", withQueryString: "user_id=\(userId)&bol=\(firstBol!)&pro_number=\(firstPro!)&carrier=\(generalInfo.carrier)&ngs_location=\(generalInfo.ngsLocation)&latitude=\(generalInfo.latitude)&longitude=\(generalInfo.longitude)&origin=\(firstOrigin!)&state_code=\(generalInfo.stateCode)&employee_name=\(generalInfo.employeeName)&driver_name=\(driverInfo.driverName)&seal_number=\(driverInfo.sealNumber)&lock_on_trailer=\(driverInfo.lockOnTrailer)&shipment_brokered=\(generalInfo.isShipmentBrokered ?? "")&brokered_by=\(generalInfo.brokeredBy ?? "")", httpMethod: "POST") { (data, error) in
+
             if error != nil {
                 print("Error while adding inbound shipment : \(error!.localizedDescription)")
                 self.hideHud()
                 return
             }
-            
+
             guard let responseData = data else {
                 self.hideHud()
                 return
             }
-            
+
             do {
                 guard let json = try JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String:Any] else {
-                    
+
                     DispatchQueue.main.async {
                         SVProgressHUD.dismiss()
                         self.presentAlert(withTitle: "An error occured while saving inbound shipment.", message: "")
                     }
-                    
+
                     return
                 }
-                
+
                 self.hideHud()
                 if let error = json["error"] as? Int {
                     if error == 0 {
-                        
+
                         DispatchQueue.main.async {
                             if let message = json["message"] as? String {
                                 //self.presentAlert(withTitle: message, message: "")
-                                
+
                                 let alert = UIAlertController(title: message, message: "", preferredStyle: .alert)
                                 let okAction = UIAlertAction(title: "OK", style: .default, handler: { (action) in
                                     //Remove the saved inbound from Core Data
@@ -186,17 +208,17 @@ class InboundViewController : UIViewController {
                                         print("Unable to delete saved inbound: \(error.localizedDescription)")
                                     }
                                 })
-                                
+
                                 alert.addAction(okAction)
                                 self.present(alert, animated: true, completion: nil)
                             }
                         }
                     }
                 }
-                
+
                // print(json)
             }
-                
+
             catch let error {
                 self.hideHud()
                 print(error.localizedDescription)
@@ -212,20 +234,22 @@ extension InboundViewController: SaveInboundGeneralInfoProtocol {
         
         //Save in core data
         let inboundShipmentInfo = InboundGeneralInfo(context: MANAGED_OBJECT_CONTEXT)
-        inboundShipmentInfo.bolNumber = generalInfo.bol
-        inboundShipmentInfo.proNumber = generalInfo.proNumber
+
+        inboundShipmentInfo.bolAndProdetails = generalInfo.bolProdetails as NSObject
         inboundShipmentInfo.carrier = generalInfo.carrier
         inboundShipmentInfo.employeeName = generalInfo.employeeName
-        inboundShipmentInfo.origin = generalInfo.origin
         inboundShipmentInfo.ngsLocation = generalInfo.ngsLocation
         inboundShipmentInfo.latitude = generalInfo.latitude
         inboundShipmentInfo.longitude = generalInfo.longitude
         inboundShipmentInfo.stateCode = generalInfo.state
+        inboundShipmentInfo.isShipmentBrokered = generalInfo.isShipmentBrokered
+        inboundShipmentInfo.brokeredBy = generalInfo.brokeredBy
         
         if let saved = savedInbound {
             //If a saved inbound exists, update it's general info
             saved.generalInfo = inboundShipmentInfo
         }
+            
         else {
             //else create a new instance of SavedInbound and set it's general info
             savedInbound = SavedInbound(context: MANAGED_OBJECT_CONTEXT)
@@ -234,6 +258,7 @@ extension InboundViewController: SaveInboundGeneralInfoProtocol {
         
         do {
             try MANAGED_OBJECT_CONTEXT.save()
+            print("Saved Inbound General Info successfully")
             showHideCheckMarkAndLabel()
         }
             

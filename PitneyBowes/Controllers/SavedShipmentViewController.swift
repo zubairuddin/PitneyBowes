@@ -61,7 +61,8 @@ extension SavedShipmentViewController: UITableViewDataSource {
         
         if type == .INBOUND {
             let shipment = arrSavedInbound[indexPath.row]
-            cell.lblShipmentName.text = shipment.generalInfo?.bolNumber
+            //TODO: Show first bol
+            //cell.lblShipmentName.text = shipment.generalInfo?.bolNumber
 
         }
         else {
@@ -112,8 +113,11 @@ extension SavedShipmentViewController: UICollectionViewDataSource {
         
         if type == .INBOUND {
             let shipment = arrSavedInbound[indexPath.row]
-            cell.lblShipmentIdentifier.text = shipment.generalInfo?.bolNumber
+            let arrBolProDetails = shipment.generalInfo?.bolAndProdetails as! [BolProOrigin]
             
+            if arrBolProDetails.count > 0 {
+                cell.lblShipmentIdentifier.text = arrBolProDetails[0].bol
+            }
         }
         else {
             let shipment = arrSavedOutbound[indexPath.row]

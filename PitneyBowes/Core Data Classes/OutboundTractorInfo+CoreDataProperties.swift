@@ -2,7 +2,7 @@
 //  OutboundTractorInfo+CoreDataProperties.swift
 //  PitneyBowes
 //
-//  Created by Zubair on 08/11/18.
+//  Created by Zubair on 25/11/18.
 //  Copyright © 2018 mac. All rights reserved.
 //
 //
@@ -17,10 +17,11 @@ extension OutboundTractorInfo {
         return NSFetchRequest<OutboundTractorInfo>(entityName: "OutboundTractorInfo")
     }
 
+    @NSManaged public var images: NSObject?
     @NSManaged public var lockOnTrailer: String
     @NSManaged public var tractorDotNumber: String
     @NSManaged public var tractorPlate: String
     @NSManaged public var trailerNumber: String
-    @NSManaged public var images: NSObject?
+    @NSManaged public var trailerPlateState: String
 
 }

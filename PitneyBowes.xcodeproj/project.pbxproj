@@ -27,6 +27,9 @@
 		3D261E0A217F8D1D00FB4D13 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D261E09217F8D1D00FB4D13 /* Constants.swift */; };
 		3D261E0D217F8F1F00FB4D13 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D261E0C217F8F1F00FB4D13 /* User.swift */; };
 		3D261E1021800E3E00FB4D13 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D261E0F21800E3E00FB4D13 /* Extensions.swift */; };
+		3D462DA421A91BFD00822FB6 /* InboundGeneralInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D462DA321A91BFD00822FB6 /* InboundGeneralInfoViewController.swift */; };
+		3D462DA621A91C8700822FB6 /* InboundGeneralInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3D462DA521A91C8700822FB6 /* InboundGeneralInfoCell.xib */; };
+		3D462DA821A920E000822FB6 /* InboundGeneralInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D462DA721A920E000822FB6 /* InboundGeneralInfoCell.swift */; };
 		3D572F4621934AF2003FCF0F /* OutboundTractorInfo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D572F4421934AF2003FCF0F /* OutboundTractorInfo+CoreDataClass.swift */; };
 		3D572F4721934AF2003FCF0F /* OutboundTractorInfo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D572F4521934AF2003FCF0F /* OutboundTractorInfo+CoreDataProperties.swift */; };
 		3D572F4A21934B3B003FCF0F /* OutboundQuestionnaireInfo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D572F4821934B3B003FCF0F /* OutboundQuestionnaireInfo+CoreDataClass.swift */; };
@@ -85,6 +88,9 @@
 		3D261E09217F8D1D00FB4D13 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		3D261E0C217F8F1F00FB4D13 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		3D261E0F21800E3E00FB4D13 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		3D462DA321A91BFD00822FB6 /* InboundGeneralInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboundGeneralInfoViewController.swift; sourceTree = "<group>"; };
+		3D462DA521A91C8700822FB6 /* InboundGeneralInfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InboundGeneralInfoCell.xib; sourceTree = "<group>"; };
+		3D462DA721A920E000822FB6 /* InboundGeneralInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboundGeneralInfoCell.swift; sourceTree = "<group>"; };
 		3D572F4421934AF2003FCF0F /* OutboundTractorInfo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OutboundTractorInfo+CoreDataClass.swift"; sourceTree = "<group>"; };
 		3D572F4521934AF2003FCF0F /* OutboundTractorInfo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OutboundTractorInfo+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		3D572F4821934B3B003FCF0F /* OutboundQuestionnaireInfo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OutboundQuestionnaireInfo+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -208,6 +214,7 @@
 				043EFC9A2174C3A5003C86CB /* SecurityQuesionViewController.swift */,
 				043EFC9D2174D7F2003C86CB /* OutBoundViewController.swift */,
 				3DEDB6FB2192BA6400FDF4AB /* SavedShipmentViewController.swift */,
+				3D462DA321A91BFD00822FB6 /* InboundGeneralInfoViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -269,6 +276,7 @@
 				3DDABD0C2180D6E300755157 /* GeneralInfoCell.swift */,
 				3DEDB7152192F84D00FDF4AB /* SavedShipmentCell.swift */,
 				3D15B387219519A000B60F4D /* SavedShipmentCollectionViewCell.swift */,
+				3D462DA721A920E000822FB6 /* InboundGeneralInfoCell.swift */,
 			);
 			path = "Custom Cell";
 			sourceTree = "<group>";
@@ -277,6 +285,7 @@
 			isa = PBXGroup;
 			children = (
 				3DDABD0F2180D72F00755157 /* GeneralInfoCell.xib */,
+				3D462DA521A91C8700822FB6 /* InboundGeneralInfoCell.xib */,
 			);
 			path = XIBs;
 			sourceTree = "<group>";
@@ -391,6 +400,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D462DA621A91C8700822FB6 /* InboundGeneralInfoCell.xib in Resources */,
 				3DDABD102180D72F00755157 /* GeneralInfoCell.xib in Resources */,
 				04F42A66217075C2004EA8E8 /* LaunchScreen.storyboard in Resources */,
 				E06075C4217CF19B006E5937 /* pb-new-logo.png in Resources */,
@@ -458,6 +468,7 @@
 				3DEDB7162192F84D00FDF4AB /* SavedShipmentCell.swift in Sources */,
 				3D0F866E218B4B540019EA25 /* AppUtility.swift in Sources */,
 				3D572F4F21934BA1003FCF0F /* OutboundDriverInfo+CoreDataProperties.swift in Sources */,
+				3D462DA821A920E000822FB6 /* InboundGeneralInfoCell.swift in Sources */,
 				046F7E8C217713CD00B0144C /* TableViewCell.swift in Sources */,
 				04872A7421746F5900B1BA5A /* DriverSealInfoViewController.swift in Sources */,
 				3D572F5621934CF5003FCF0F /* OutboundGeneralInfo+CoreDataClass.swift in Sources */,
@@ -478,6 +489,7 @@
 				F912FEEB218054BD00FBA36D /* PitneyBowes.xcdatamodeld in Sources */,
 				F912FF012180A83C00FBA36D /* Shipment.swift in Sources */,
 				3DEDB70E2192C9CD00FDF4AB /* InboundGeneralInfo+CoreDataProperties.swift in Sources */,
+				3D462DA421A91BFD00822FB6 /* InboundGeneralInfoViewController.swift in Sources */,
 				04F42A8A21707B69004EA8E8 /* GeneralInfoViewController.swift in Sources */,
 				3DEDB6FC2192BA6400FDF4AB /* SavedShipmentViewController.swift in Sources */,
 				0482184C2178A81D0031BFAE /* MainViewController.swift in Sources */,

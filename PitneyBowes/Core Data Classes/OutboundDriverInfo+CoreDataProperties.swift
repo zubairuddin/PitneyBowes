@@ -2,7 +2,7 @@
 //  OutboundDriverInfo+CoreDataProperties.swift
 //  PitneyBowes
 //
-//  Created by Zubair on 15/11/18.
+//  Created by Zubair on 25/11/18.
 //  Copyright © 2018 mac. All rights reserved.
 //
 //
@@ -20,5 +20,8 @@ extension OutboundDriverInfo {
     @NSManaged public var driverName: String
     @NSManaged public var lockOnTrailer: String
     @NSManaged public var sealNumber: String
+    @NSManaged public var images: NSObject?
+    @NSManaged public var cdlNumber: String?
+    @NSManaged public var expirationDate: String?
 
 }

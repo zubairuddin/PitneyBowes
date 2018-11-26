@@ -39,7 +39,6 @@ class MainViewController: UIViewController {
         ApplicationManager.shared.shipmentType = .INBOUND
 
         self.navigationController?.pushViewController(vc, animated: true)
-        
     }
     
     @IBAction func butt_Out(_ sender: UIButton) {

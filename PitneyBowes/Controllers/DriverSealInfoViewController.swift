@@ -14,10 +14,18 @@ struct InboundShipmentDriverInfo {
     var isLockOnTrailer: String
 }
 
+enum ImageType {
+    case driver1, driver2, photoId, other
+}
+
 struct OutboundShipmentDriverInfo {
     var driverName: String
     var sealNumber: String
     var isLockOnTrailer: String
+    var cdlNumber: String
+    var expirationDate: String
+    let driverImages : [[String:UIImage]]
+
 }
 
 protocol SaveInboundDriverInfoProtocol {
@@ -30,11 +38,24 @@ protocol SaveOutboundDriverInfoProtocol {
 
 class DriverSeallnfoViewController: UIViewController {
 
+    @IBOutlet weak var viewCDLHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var viewCDL: UIView!
     @IBOutlet weak var txtDriverName: UITextField!
     @IBOutlet weak var txtSealNumber: UITextField!
     @IBOutlet weak var segmentIsLock: UISegmentedControl!
+    @IBOutlet weak var txtCDLNumber: UITextField!
+    @IBOutlet weak var txtCDLExpirationDate: UITextField!
+    
+    @IBOutlet weak var imgDriver1: UIImageView!
+    @IBOutlet weak var imgDriver2: UIImageView!
+    @IBOutlet weak var imgPhotoId: UIImageView!
+    @IBOutlet weak var imgOther: UIImageView!
+    
+    var selectedImageType: ImageType?
     
     var strIsLock = "Yes"
+    
+    var arrSelectedImages = [[String:UIImage]]()
     
     var inboundDriverInfoDelegate: SaveInboundDriverInfoProtocol?
     var outboundDriverInfoDelegate: SaveOutboundDriverInfoProtocol?
@@ -66,6 +87,10 @@ class DriverSeallnfoViewController: UIViewController {
                     break
                 }
             }
+            
+            //Hide CDL View
+            viewCDL.isHidden = true
+            viewCDLHeightConstraint.constant = 0
         }
         else {
             //If driver info is available from saved shipment, show it on text fields
@@ -81,9 +106,76 @@ class DriverSeallnfoViewController: UIViewController {
                 default:
                     break
                 }
+                
+                //Get the selected images
+                let images = info.images as! [[String:UIImage]]
+                arrSelectedImages = images
+                
+                for image in images {
+                    if let driver1 = image[""] {
+                        imgDriver1.image = driver1
+                    }
+                    if let driver2 = image[""] {
+                        imgDriver2.image = driver2
+                    }
+                    if let photoId = image[""] {
+                        imgPhotoId.image = photoId
+                    }
+                    if let other = image[""] {
+                        imgOther.image = other
+                    }
+                }
+                
+                //CDL Number and expiration date
+                txtCDLNumber.text = info.cdlNumber
+                txtCDLExpirationDate.text = info.expirationDate
             }
+            
+            //Show CDL View
+            viewCDL.isHidden = false
+            viewCDLHeightConstraint.constant = 90
+
+        }
+    }
+    @IBAction func selectImageAction(_ sender: UIButton) {
+        switch sender.tag {
+        case 1:
+            selectedImageType = .driver1
+        case 2:
+            selectedImageType = .driver2
+        case 3:
+            selectedImageType = .photoId
+        case 4:
+            selectedImageType = .other
+        default:
+            break
         }
         
+        let alert = UIAlertController(title: "Select Image", message: nil, preferredStyle: .actionSheet)
+        let cameraAction = UIAlertAction(title: "Camera", style: .default) { (action) in
+            self.openCamera()
+        }
+        let galleryAction = UIAlertAction(title: "Photo Library", style: .default) { (action) in
+            self.openPhotoLibrary()
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
+        }
+        
+        alert.addAction(cameraAction)
+        alert.addAction(galleryAction)
+        alert.addAction(cancelAction)
+        
+        //iPad specific lines
+        alert.popoverPresentationController?.sourceView = sender
+        alert.popoverPresentationController?.sourceRect = sender.frame
+        alert.popoverPresentationController?.permittedArrowDirections = [.up]
+        
+        present(alert, animated: true, completion: nil)
+
+    }
+    
+    @IBAction func selectExpirationDate(_ sender: UIButton) {
+        //TODO: Show Date Picker
     }
     
     @IBAction func segmentChanged(_ sender: UISegmentedControl) {
@@ -113,6 +205,33 @@ class DriverSeallnfoViewController: UIViewController {
         }
     }
     
+    private func openCamera() {
+        //Instantiate UIImagePickerController
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            //Show UIImagePicker with Camera
+            picker.sourceType = .camera
+            present(picker, animated: true, completion: nil)
+        }
+        else {
+            //Show Alert
+            let alert  = UIAlertController(title: "Warning", message: "Camera not available", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    
+    private func openPhotoLibrary() {
+        //Instantiate UIImagePickerController
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        //picker.allowsEditing = true
+        picker.sourceType = .photoLibrary
+        present(picker, animated: true, completion: nil)
+    }
+
     func saveData() {
         guard let type = ApplicationManager.shared.shipmentType else {
             return
@@ -130,7 +249,7 @@ class DriverSeallnfoViewController: UIViewController {
             let driverName = txtDriverName.text!
             let sealNumber = txtSealNumber.text!
             
-            let driverInfo = OutboundShipmentDriverInfo(driverName: driverName, sealNumber: sealNumber, isLockOnTrailer: strIsLock)
+            let driverInfo = OutboundShipmentDriverInfo(driverName: driverName, sealNumber: sealNumber, isLockOnTrailer: strIsLock, cdlNumber: txtCDLNumber.text!, expirationDate: txtCDLExpirationDate.text!, driverImages: arrSelectedImages)
             
             outboundDriverInfoDelegate?.didSaveOutboundShipmentDriverInfo(driverInfo: driverInfo)
         }
@@ -175,5 +294,40 @@ extension DriverSeallnfoViewController: UITextFieldDelegate {
         }
         
         return true
+    }
+}
+extension DriverSeallnfoViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        guard let selectedImage = info[UIImagePickerControllerOriginalImage] as? UIImage else {
+            return
+        }
+        
+        guard let selectedImageType = selectedImageType else {
+            return
+        }
+        
+        var dictSelectedImage: [String:UIImage]!
+        switch selectedImageType {
+        case .driver1:
+            imgDriver1.image = selectedImage
+            dictSelectedImage = ["driver_1":imgDriver1.image!]
+        case .driver2:
+            imgDriver2.image = selectedImage
+            dictSelectedImage = ["driver_2":imgDriver2.image!]
+        case .photoId:
+            imgPhotoId.image = selectedImage
+            dictSelectedImage = ["photo_id":imgPhotoId.image!]
+        case .other:
+            imgOther.image = selectedImage
+            dictSelectedImage = ["other":imgOther.image!]
+        }
+        
+        arrSelectedImages.append(dictSelectedImage)
+        dismiss(animated: true, completion: nil)
+        
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
     }
 }

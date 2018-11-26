@@ -243,11 +243,17 @@ class OutBoundViewController: UIViewController {
         var params = [[String:UIImage]]()
         
         let tractorImages = savedOutbound?.tractorInfo?.images as! [[String:UIImage]]
+        let driverImages = savedOutbound?.driverInfo?.images as! [[String:UIImage]]
         let signatureImage = savedOutbound?.questionnaireInfo?.signature as! [String:UIImage]
+        
         
         //append tractor and trailer images
         for tractorImage in tractorImages {
             params.append(tractorImage)
+        }
+        
+        for driverImage in driverImages {
+            params.append(driverImage)
         }
 
         //append the signature image
@@ -255,7 +261,7 @@ class OutBoundViewController: UIViewController {
         
         print("Form data parameters are: \(params)")
         
-        APIManager.saveOutboundInfo(appendingPath: "shipments/add", withQueryString: "user_id=\(userID)&type=\(type)&bol=\(generalInfo.bolNumber)&pro_number=\(generalInfo.proNumber)&carrier=\(generalInfo.carrier)&ngs_location=\(generalInfo.ngsLocation)&latitude=\(generalInfo.latitude)&longitude=\(generalInfo.longitude)&destination=\(generalInfo.destination)&state_code=\(generalInfo.stateCode)&employee_name=\(generalInfo.employeeName)&driver_name=\(driverInfo.driverName)&seal_number=\(driverInfo.sealNumber)&lock_on_trailer=\(driverInfo.lockOnTrailer)&trailer_number=\(tractorInfo.trailerNumber)&tractor_dot_number=\(tractorInfo.tractorDotNumber)&tractor_plate=\(tractorInfo.tractorPlate)&dont_discuss_shipment=\(questionaireInfo.discussShipment)&dont_carry_passengers=\(questionaireInfo.carryPassengers)&acknowledge_receipt=\(questionaireInfo.receiptAcknowledge)&alert_contact=\(questionaireInfo.alertContact)", paramerer: params) { (data, error) in
+        APIManager.saveOutboundInfo(appendingPath: "shipments/add", withQueryString: "user_id=\(userID)&type=\(type)&bol=\(generalInfo.bolNumber)&pro_number=\(generalInfo.proNumber)&carrier=\(generalInfo.carrier)&ngs_location=\(generalInfo.ngsLocation)&latitude=\(generalInfo.latitude)&longitude=\(generalInfo.longitude)&destination=\(generalInfo.destination)&state_code=\(generalInfo.stateCode)&employee_name=\(generalInfo.employeeName)&driver_name=\(driverInfo.driverName)&seal_number=\(driverInfo.sealNumber)&lock_on_trailer=\(driverInfo.lockOnTrailer)&trailer_number=\(tractorInfo.trailerNumber)&tractor_dot_number=\(tractorInfo.tractorDotNumber)&tractor_plate=\(tractorInfo.tractorPlate)&dont_discuss_shipment=\(questionaireInfo.discussShipment)&dont_carry_passengers=\(questionaireInfo.carryPassengers)&acknowledge_receipt=\(questionaireInfo.receiptAcknowledge)&alert_contact=\(questionaireInfo.alertContact)&cdl_number=\(driverInfo.cdlNumber ?? "")&cdl_expiry_date=\(driverInfo.expirationDate ?? "")&trailer_license_plate_state=\(tractorInfo.trailerPlateState)", paramerer: params) { (data, error) in
             
             if error != nil {
                 print(error!.localizedDescription)
@@ -364,6 +370,9 @@ extension OutBoundViewController: SaveOutboundDriverInfoProtocol {
         outboundDriverInfo.driverName = driverInfo.driverName
         outboundDriverInfo.sealNumber = driverInfo.sealNumber
         outboundDriverInfo.lockOnTrailer = driverInfo.isLockOnTrailer
+        outboundDriverInfo.cdlNumber = driverInfo.cdlNumber
+        outboundDriverInfo.expirationDate = driverInfo.expirationDate
+        outboundDriverInfo.images = driverInfo.driverImages as NSObject
         
         //Need to confirm what will be displayed on the grid/list if user enters driver info before entering general info,
         
@@ -401,6 +410,7 @@ extension OutBoundViewController: SaveOutboundTractorAndTrailerInfoProtocol {
         tractorInfo.tractorDotNumber = tractorAndTrailerInfo.tractorDotNumber
         tractorInfo.trailerNumber = tractorAndTrailerInfo.trailerNumber
         tractorInfo.lockOnTrailer = tractorAndTrailerInfo.lockOnTrailer
+        tractorInfo.trailerPlateState = tractorAndTrailerInfo.trailerPlateAndState
         
         //Images are stored as transformable, so we have to convert them as NSObject
         tractorInfo.images = tractorAndTrailerInfo.tractorAndTrailerImages as NSObject

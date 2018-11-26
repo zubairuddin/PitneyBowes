@@ -2,7 +2,7 @@
 //  InboundDriverInfo+CoreDataProperties.swift
 //  PitneyBowes
 //
-//  Created by Zubair on 07/11/18.
+//  Created by Zubair on 25/11/18.
 //  Copyright © 2018 mac. All rights reserved.
 //
 //
@@ -18,7 +18,7 @@ extension InboundDriverInfo {
     }
 
     @NSManaged public var driverName: String
-    @NSManaged public var sealNumber: String
     @NSManaged public var lockOnTrailer: String
+    @NSManaged public var sealNumber: String
 
 }
