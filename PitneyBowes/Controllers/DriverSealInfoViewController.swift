@@ -332,7 +332,7 @@ class DriverSeallnfoViewController: UIViewController {
     }
     func showHideDatePicker(isShow: Bool) {
         if isShow {
-            
+            self.view.endEditing(true)
             viewDatePickerBottomConstraint.constant = 0
         }
         else {
@@ -348,14 +348,30 @@ class DriverSeallnfoViewController: UIViewController {
 extension DriverSeallnfoViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
-        if textField == txtDriverName {
-            txtSealNumber.becomeFirstResponder()
+        if ApplicationManager.shared.shipmentType == .INBOUND {
+            if textField == txtDriverName {
+                txtSealNumber.becomeFirstResponder()
+            }
+            else {
+                textField.resignFirstResponder()
+            }
+
         }
         else {
-            textField.resignFirstResponder()
+            if textField == txtDriverName {
+                txtCDLNumber.becomeFirstResponder()
+            }
+            else {
+                textField.resignFirstResponder()
+            }
+
         }
         
         return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.resignFirstResponder()
     }
 }
 extension DriverSeallnfoViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {

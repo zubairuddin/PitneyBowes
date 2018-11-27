@@ -51,5 +51,53 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PitneyBowes/Controllers/InboundViewController.swift"
+            timestampString = "564976634.506918"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "163"
+            endingLineNumber = "163"
+            landmarkName = "submitInboundShipment(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PitneyBowes.InboundViewController.submitInboundShipment(__C.UIButton) -&gt; ()"
+                  moduleName = "PitneyBowes"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zubair/Documents/Projects/PitneyBowes/PitneyBowes/Controllers/InboundViewController.swift"
+                  timestampString = "564946249.337491"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "163"
+                  endingLineNumber = "163"
+                  offsetFromSymbolStart = "5431">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in PitneyBowes.InboundViewController.submitInboundShipment(__C.UIButton) -&gt; ()"
+                  moduleName = "PitneyBowes"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/zubair/Documents/Projects/PitneyBowes/PitneyBowes/Controllers/InboundViewController.swift"
+                  timestampString = "564946249.341253"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "165"
+                  endingLineNumber = "165"
+                  offsetFromSymbolStart = "71">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

@@ -368,9 +368,26 @@ class AddGeneralInfoViewController: UIViewController {
         tblInboundGeneralInfo.endUpdates()
         
         startInboundScan()
-        
-        
     }
+    
+    @objc func btnBolNATapped(sender: UIButton) {
+        let indexPath = IndexPath(row: sender.tag, section: 0)
+        let cell = tblInboundGeneralInfo.cellForRow(at: indexPath) as! InboundGeneralInfoCell
+        
+        //Get the bol field
+        let bolField = cell.contentView.viewWithTag(101) as! UITextField
+        bolField.text = "N/A"
+
+    }
+    @objc func btnProNATapped(sender: UIButton) {
+        let indexPath = IndexPath(row: sender.tag, section: 0)
+        let cell = tblInboundGeneralInfo.cellForRow(at: indexPath) as! InboundGeneralInfoCell
+        
+        //Get the bol field
+        let proField = cell.contentView.viewWithTag(102) as! UITextField
+        proField.text = "N/A"
+    }
+
     
     @IBAction func brokeredBySegmentChanged(_ sender: UISegmentedControl) {
     }
@@ -573,7 +590,9 @@ class AddGeneralInfoViewController: UIViewController {
             
             pickerView.reloadAllComponents()
             
-            txtLocation.resignFirstResponder()
+            //txtLocation.resignFirstResponder()
+            self.view.endEditing(true)
+            
             viewPickerBottomConstraint.constant = 0
             
             //Default row selection
@@ -608,9 +627,6 @@ class AddGeneralInfoViewController: UIViewController {
             if (cell.txtBol.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)! {
                 return .invalid("Please enter BOL number.")
             }
-            else if (cell.txtPro.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)! {
-                return .invalid("Please enter Pro number.")
-            }
             else if (cell.txtOrigin.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)! {
                 return .invalid("Please enter origin.")
             }
@@ -627,9 +643,6 @@ class AddGeneralInfoViewController: UIViewController {
         else {
             if (txtBol.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)! {
                 return .invalid("Please enter BOL number.")
-            }
-            else if (txtPro.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)! {
-                return .invalid("Please enter Pro number.")
             }
             else if (txtCarrier.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)! {
                 return .invalid("Please enter carrier.")
@@ -955,7 +968,7 @@ extension AddGeneralInfoViewController: AVCaptureMetadataOutputObjectsDelegate {
                 stopInboundScan()
                 
                 print("Barcode detected: \(stringCode)")
-                scannedTextFieldForInbound.text = stringCode
+                scannedTextFieldForInbound.text = stringCode.uppercased()
             }
             
             return
@@ -1093,6 +1106,13 @@ extension AddGeneralInfoViewController: UITableViewDataSource {
             
             cell.btnScanBol.addTarget(self, action: #selector(inboundBolScanTapped(sender:)), for: .touchUpInside)
             cell.btnScanPro.addTarget(self, action: #selector(inboundProScanTapped(sender:)), for: .touchUpInside)
+            
+            cell.btnBolNotApplicable.tag = indexPath.row
+            cell.btnProNotApplicable.tag = indexPath.row
+            
+            cell.btnBolNotApplicable.addTarget(self, action: #selector(btnBolNATapped(sender:)), for: .touchUpInside)
+            cell.btnProNotApplicable.addTarget(self, action: #selector(btnProNATapped(sender:)), for: .touchUpInside)
+
             
             //When a new cell is added, it should not copy the value from old cell when dequeued
             cell.txtBol.text = nil

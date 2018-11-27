@@ -160,7 +160,7 @@ class InboundViewController : UIViewController {
             }
         }
         
-        APIManager.executeRequest(appendingPath: "shipments/add", withQueryString: "user_id=\(userId)&bol=\(firstBol!)&pro_number=\(firstPro!)&carrier=\(generalInfo.carrier)&ngs_location=\(generalInfo.ngsLocation)&latitude=\(generalInfo.latitude)&longitude=\(generalInfo.longitude)&origin=\(firstOrigin!)&state_code=\(generalInfo.stateCode)&employee_name=\(generalInfo.employeeName)&driver_name=\(driverInfo.driverName)&seal_number=\(driverInfo.sealNumber)&lock_on_trailer=\(driverInfo.lockOnTrailer)&shipment_brokered=\(generalInfo.isShipmentBrokered ?? "")&brokered_by=\(generalInfo.brokeredBy ?? "")", httpMethod: "POST") { (data, error) in
+        APIManager.executeRequest(appendingPath: "shipments/add", withQueryString: "user_id=\(userId)&bol=\(firstBol!)&pro_number=\(firstPro!)&carrier=\(generalInfo.carrier)&ngs_location=\(generalInfo.ngsLocation)&latitude=\(generalInfo.latitude)&longitude=\(generalInfo.longitude)&origin=\(firstOrigin!)&state_code=\(generalInfo.stateCode)&employee_name=\(generalInfo.employeeName)&driver_name=\(driverInfo.driverName)&seal_number=\(driverInfo.sealNumber)&lock_on_trailer=\(driverInfo.lockOnTrailer)&shipment_brokered=\(generalInfo.isShipmentBrokered ?? "")&brokered_by=\(generalInfo.brokeredBy ?? "")&\(strOptionalParams)", httpMethod: "POST") { (data, error) in
 
             if error != nil {
                 print("Error while adding inbound shipment : \(error!.localizedDescription)")
