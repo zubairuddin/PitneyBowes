@@ -198,6 +198,9 @@ class AddGeneralInfoViewController: UIViewController {
             viewOutbound.isHidden = false
             tblInboundGeneralInfo.isHidden = true
             
+            if let selectedPBLocation = UserDefaults.standard.string(forKey: "OutboundPBLocationName") {
+                txtLocation.text = selectedPBLocation
+            }
             
             //Show general info if coming from SavedInbound screen
             if let generalInfo = outboundGeneralInfo {
@@ -390,7 +393,9 @@ class AddGeneralInfoViewController: UIViewController {
 
     
     @IBAction func brokeredBySegmentChanged(_ sender: UISegmentedControl) {
+        
     }
+    
     @IBAction func cancelSelection(_ sender: RoundedBorderButton) {
         showHideLocationPicker(isShow: false)
     }
@@ -406,20 +411,17 @@ class AddGeneralInfoViewController: UIViewController {
         case .INBOUND:
             txtInboundPBLocation.text = selectedNgsLocation?.location
             
-            //TODO: Can't insert custom object in user defaults
             UserDefaults.standard.setValue(selectedNgsLocation?.location, forKey: "InboundPBLocationName")
             UserDefaults.standard.setValue(selectedNgsLocation?.latitude, forKey: "InboundPBLocationLatitude")
             UserDefaults.standard.setValue(selectedNgsLocation?.longitude, forKey: "InboundPBLocationLongitude")
             
         case.OUTBOUND:
+            txtLocation.text = selectedNgsLocation?.location
             
-            if selectedLocationType == .ngs {
-                txtLocation.text = selectedNgsLocation?.location
-            }
-            else {
-                txtOriginOrDestination.text = selectedLocation?.name
-            }
-            
+            UserDefaults.standard.setValue(selectedNgsLocation?.location, forKey: "OutboundPBLocationName")
+            UserDefaults.standard.setValue(selectedNgsLocation?.latitude, forKey: "OutboundPBLocationLatitude")
+            UserDefaults.standard.setValue(selectedNgsLocation?.longitude, forKey: "OutboundPBLocationLongitude")
+
         }
     }
     
@@ -542,7 +544,7 @@ class AddGeneralInfoViewController: UIViewController {
             return
         }
         
-        let isShipmentBrokered = segmentShipmentBrokered.selectedSegmentIndex == 0 ? "Yes" : "False"
+        let isShipmentBrokered = segmentShipmentBrokered.selectedSegmentIndex == 0 ? "Yes" : "No"
         let generalInfo = InboundShipmentGeneralInfo(bolProdetails: arrBolProDetais, ngsLocation: name, latitude: lat, longitude: long, carrier: txtInboundCarrier.text!, state: selectedLocation?.state_code ?? "", employeeName: strSelectedEmployeeName, isShipmentBrokered: isShipmentBrokered, brokeredBy: txtBrokeredBy.text!)
         
         //Pass the general info to the InboundViewController via it's delegate
@@ -555,15 +557,19 @@ class AddGeneralInfoViewController: UIViewController {
         let bolNumber = txtBol.text!
         let proNumber = txtPro.text!
         let carrier = txtCarrier.text!
-        let ngsLocation = txtLocation.text!
         let destination = txtOriginOrDestination.text!
         let sealNumber = txtSealNumber.text!
         
-        guard let latitude = selectedNgsLocation?.latitude, let longitude = selectedNgsLocation?.longitude, let name = selectedNgsLocation?.location else {
+        let locationName = UserDefaults.standard.string(forKey: "OutboundPBLocationName")
+        let latitude = UserDefaults.standard.string(forKey: "OutboundPBLocationLatitude")
+        let longitude = UserDefaults.standard.string(forKey: "OutboundPBLocationLongitude")
+        
+        guard let name = locationName, let lat = latitude, let long = longitude else {
             return
         }
+
         
-        let generalInfo = OutboundShipmentGeneralInfo(bol: bolNumber, proNumber: proNumber, carrier: carrier, ngsLocation: name, latitude: latitude, longitude: longitude, destination: destination, sealNumber: sealNumber, state: selectedLocation?.state_code ?? "", employeeName: strSelectedEmployeeName)
+        let generalInfo = OutboundShipmentGeneralInfo(bol: bolNumber, proNumber: proNumber, carrier: carrier, ngsLocation: name, latitude: lat, longitude: long, destination: destination, sealNumber: sealNumber, state: selectedLocation?.state_code ?? "", employeeName: strSelectedEmployeeName)
         
         //Pass the general info to the OutboundViewController via it's delegate
         outboundGeneralInfoDelegate?.didSaveOutboundShipmentGeneralInfo(generalInfo: generalInfo)

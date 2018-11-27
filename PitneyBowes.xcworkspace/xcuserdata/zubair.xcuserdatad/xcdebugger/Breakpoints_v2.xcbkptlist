@@ -74,7 +74,7 @@
                   moduleName = "PitneyBowes"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zubair/Documents/Projects/PitneyBowes/PitneyBowes/Controllers/InboundViewController.swift"
-                  timestampString = "564946249.337491"
+                  timestampString = "565029719.0528311"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "163"
@@ -89,7 +89,7 @@
                   moduleName = "PitneyBowes"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zubair/Documents/Projects/PitneyBowes/PitneyBowes/Controllers/InboundViewController.swift"
-                  timestampString = "564946249.341253"
+                  timestampString = "565029719.056118"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "165"
@@ -97,6 +97,38 @@
                   offsetFromSymbolStart = "71">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PitneyBowes/Controllers/AddGeneralInfoViewController.swift"
+            timestampString = "565029718.830534"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "543"
+            endingLineNumber = "543"
+            landmarkName = "saveGeneralInfoForInboundShipment()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PitneyBowes/Controllers/AddGeneralInfoViewController.swift"
+            timestampString = "565029718.831394"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "548"
+            endingLineNumber = "548"
+            landmarkName = "saveGeneralInfoForInboundShipment()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
