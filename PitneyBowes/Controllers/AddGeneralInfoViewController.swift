@@ -92,7 +92,6 @@ class AddGeneralInfoViewController: UIViewController {
     @IBOutlet weak var txtCarrier: UITextField!
     @IBOutlet weak var txtLocation: UITextField!
     @IBOutlet weak var txtOriginOrDestination: UITextField!
-    @IBOutlet weak var txtSealNumber: UITextField!
     
     @IBOutlet weak var lblOriginOrDestination: UILabel!
     
@@ -209,7 +208,6 @@ class AddGeneralInfoViewController: UIViewController {
                 txtCarrier.text = generalInfo.carrier
                 txtLocation.text = generalInfo.ngsLocation
                 txtOriginOrDestination.text = generalInfo.destination
-                txtSealNumber.text = generalInfo.sealNumber
             }
         }
         
@@ -433,10 +431,6 @@ class AddGeneralInfoViewController: UIViewController {
         txtPro.text = "N/A"
     }
     
-    @IBAction func sealNotApplicableAction(_ sender: UIButton) {
-        txtSealNumber.text = "N/A"
-    }
-    
     @objc func cancel(_ sender: Any){
         self.navigationController?.popViewController(animated: true)
     }
@@ -558,7 +552,7 @@ class AddGeneralInfoViewController: UIViewController {
         let proNumber = txtPro.text!
         let carrier = txtCarrier.text!
         let destination = txtOriginOrDestination.text!
-        let sealNumber = txtSealNumber.text!
+        let sealNumber = ""
         
         let locationName = UserDefaults.standard.string(forKey: "OutboundPBLocationName")
         let latitude = UserDefaults.standard.string(forKey: "OutboundPBLocationLatitude")
@@ -1074,7 +1068,7 @@ extension AddGeneralInfoViewController: UITextFieldDelegate {
             }
         }
             
-        else if textField == txtCarrier || textField == txtSealNumber{
+        else if textField == txtCarrier {
             btnScanPro.isHidden = true
             btnScanPro.isHidden = true
             btnScanProHeightConstraint.constant = 0
